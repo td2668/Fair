@@ -1,0 +1,311 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <div id="cv_item_form" class="edit">
+        <div class="padder">
+            {% if is_admin_chair_or_dean %}
+                <h3 class='title'>CAQC Comprehensive Reporting</h3>
+
+                <p class='enfasis' style="font-size: 0.9em;">This is the current status of faculty comprehensive CVs.</p>
+                <table style="font-size: 0.7em;" width=400>
+                    <tr>
+                        <td width='10'>1</td>
+                        <td>Degrees</td>
+                        <td width='10'>10</td>
+                        <td>Conference Presentations</td>
+                    </tr>
+                    <tr>
+                        <td width='10'>2</td>
+                        <td>Deg. In Progress</td>
+                        <td width='10'>11</td>
+                        <td>Conference Attendance</td>
+                    </tr>
+                    <tr>
+                        <td width='10'>3</td>
+                        <td>Appointments</td>
+                        <td width='10'>12</td>
+                        <td>Student Pubs</td>
+                    </tr>
+                    <tr>
+                        <td width='10'>4</td>
+                        <td>Admin Appts.</td>
+                        <td width='10'>13</td>
+                        <td>Peer-reviewed, Submitted</td>
+                    <tr>
+                        <td width='10'>5</td>
+                        <td>Books Authored</td>
+                        <td width='10'>14</td>
+                        <td>Grants</td>
+                    </tr>
+                    <tr>
+                        <td width='10'>6</td>
+                        <td>Books Edited</td>
+                        <td width='10'>15</td>
+                        <td>Scholarly Service</td>
+                    </tr>
+                    <tr>
+                        <td width='10'>7</td>
+                        <td>Ref. Journal Articles/Chapters</td>
+                        <td width='10'>16</td>
+                        <td>Prof. Memberships</td>
+                    </tr>
+                    <tr>
+                        <td width='10'>8</td>
+                        <td>Other Peer-reviewed</td>
+                        <td width='10'>17</td>
+                        <td>Prof. Qualifications</td>
+                    </tr>
+                    <tr>
+                        <td width='10'>9</td>
+                        <td>Non Peer-reviewed</td>
+                        <td width='10'>18</td>
+                        <td>Prof. Experience</td>
+                    </tr>
+                </table>
+
+                {% for degree in degrees_by_user %}
+                    <table class="table-fancy" style="margin-bottom: 20px">
+                        <tr>
+                            <th colspan="22">{{ degree.name }}</th>
+                        </tr>
+                        <tr>
+                            <th align="right">Name</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                            <th>7</th>
+                            <th>8</th>
+                            <th>9</th>
+                            <th>10</th>
+                            <th>11</th>
+                            <th>12</th>
+                            <th>13</th>
+                            <th>14</th>
+                            <th>15</th>
+                            <th>16</th>
+                            <th>17</th>
+                            <th>18</th>
+                            <th>Latest</th>
+                            <th>Avail.</th>
+                            <th>A.R.</th>
+                        </tr>
+
+                        {% for stats in degree.stats %}
+                            <tr>
+                                <td class="user">{{ stats.user_name }}</td>
+                                <td class="user">{{ stats.degrees }}</td>
+                                <td class="user">{{ stats.inProg }}</td>
+                                <td class="user">{{ stats.appointments }}</td>
+                                <td class="user">{{ stats.admin }}</td>
+                                <td class='user'>{{ stats.user_Books_Authored }}</td>
+                                <td class='user'>{{ stats.user_Books_Edited }}</td>
+                                <td class='user'>{{ stats.user_Journals }}</td>
+                                <td class='user'>{{ stats.user_Other_Peer }}</td>
+                                <td class='user'>{{ stats.user_Non_Peer_Scholarly }}</td>
+                                <td class='user'>{{ stats.user_Conference_Presentation }}</td>
+                                <td class='user'>{{ stats.user_Conference_Attendance }}</td>
+                                <td class='user'>{{ stats.user_Student_Publications }}</td>
+                                <td class='user'>{{ stats.user_Peer_Review_Submitted }}</td>
+                                <td class='user'>{{ stats.user_Grants }}</td>
+                                <td class='user'>{{ stats.user_Scholarly_Service }}</td>
+                                <td class="user">{{ stats.memberships }}</td>
+                                <td class="user">{{ stats.qualifications }}</td>
+                                <td class="user">{{ stats.experience }}</td>
+                                <td class="user">{{ stats.date }}</td>
+                                <td class="user">{{ stats.items }}</td>
+                                <td class="user">{{ stats.ar }}</td>
+                           </tr>
+                        {% endfor %}
+                    </table>
+                {% endfor %}
+            {% endif %}
+
+            <p>&nbsp;</p>
+
+            <h3 class='title'>CAQC Annual Stats</h3>
+            <p class='enfasis' style="font-size: 0.9em;">
+                The numbers in this chart are drawn from your current 'Annual Report' submission.
+                The totals in the right column (if you teach in a degree program) are sent to the Quality
+                Council each spring to give a snapshot of activity levels. The comprehensive CAQC CV is a
+                separate process from this, using similar (but not exactly the same) criteria.
+            </p>
+
+            <table class="table-fancy">
+                <tr>
+                    <th>Category</th>
+                    <th>{{ user_name }}</th>
+                    <th>{{ degree_name }}</th>
+                </tr>
+                <tr>
+                    <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/books.html',this);return false">
+                        Books Authored <img valign='absmiddle' src="/images/helpicon.gif">
+                    </td>
+                    <td class='user'>{{ user_Books_Authored }}</td>
+                    <td>{{ degree_books_authored }}</td>
+                </tr>
+                <tr>
+
+                    <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/edited.html',this);return false">
+                        Books Edited <img src="/images/helpicon.gif">
+                    </td>
+                    <td class='user'>{{ user_Books_Edited }}</td>
+                    <td>{{ degree_books_edited }}</td>
+                </tr>
+                <tr>
+
+                    <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/refereed.html',this);return false">
+                        Articles in Refereed Journals / Book Chapters <img src="/images/helpicon.gif">
+                    </td>
+                    <td class='user'>{{ user_Journals }}</td>
+                    <td>{{ degree_journals }}</td>
+                </tr>
+                <tr>
+
+                    <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/otherpeer.html',this);return false">
+                        Other Peer-reviewed Scholarly Activity <img valign='absmiddle' src="/images/helpicon.gif">
+                    </td>
+                    <td class='user'>{{ user_Other_Peer }}</td>
+                    <td>{{ degree_other_peer }}</td>
+                </tr>
+                <tr>
+
+                    <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/nonpeer.html',this);return false">
+                        Non Peer-reviewed Scholarly Activity <img valign='absmiddle' src="/images/helpicon.gif">
+                    </td>
+                    <td class='user'>{{ user_Non_Peer_Scholarly }}</td>
+                    <td>{{ degree_non_peer }}</td>
+                </tr>
+                <tr>
+
+                    <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/confpres.html',this);return false">
+                        Conference Presentations <img valign='absmiddle' src="/images/helpicon.gif">
+                    </td>
+                    <td class='user'>{{ user_Conference_Presentation }}</td>
+                    <td>{{ degree_conference_presentation }}</td>
+                </tr>
+                <tr>
+
+                    <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/confattend.html',this);return false">
+                        Conference Attendance <img valign='absmiddle' src="/images/helpicon.gif">
+                    </td>
+                    <td class='user'>{{ user_Conference_Attendance }}</td>
+                    <td>{{ degree_conference_attendance }}</td>
+                </tr>
+                <tr>
+
+                    <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/student.html',this);return false">
+                        Student Publications <img valign='absmiddle' src="/images/helpicon.gif">
+                    </td>
+                    <td class='user'>{{ user_Student_Publications }}</td>
+                    <td>{{ degree_student_publications }}</td>
+                </tr>
+                <tr>
+
+                    <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/submitted.html',this);return false">
+                        Peer-reviewed Publications, Submitted <img valign='absmiddle' src="/images/helpicon.gif">
+                    </td>
+                    <td class='user'>{{ user_Peer_Review_Submitted }}</td>
+                    <td>{{ degree_peer_reviewed_submitted }}</td>
+                </tr>
+                <tr>
+
+                    <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/grants.html',this);return false">
+                        Grants <img valign='absmiddle' src="/images/helpicon.gif">
+                    </td>
+                    <td class='user'>{{ user_Grants }}</td>
+                    <td>{{ degree_grants }}</td>
+                </tr>
+                <tr>
+
+                    <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/service.html',this);return false">
+                        Scholarly Service <img valign='absmiddle' src="/images/helpicon.gif">
+                    </td>
+                    <td class='user'>{{ user_Scholarly_Service }}</td>
+                    <td>{{ degree_scholarly_service }}</td>
+                </tr>
+            </table>
+
+            <p>&nbsp;</p>
+
+            <p class='enfasis' style="font-size: 0.9em;">* Activities must be flagged for inclusion in the annual report (AR) to be included in these counts.</p>
+
+            {% for degree in all_degree_stats %}
+                <table class="table-fancy" style="margin-bottom: 20px">
+                    <tr>
+                        <th>Category</th>
+                        <th width="200">{{ degree.degree_name }}</th>
+                    </tr>
+                    <tr>
+                        <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/books.html',this);return false">
+                            Books Authored <img valign='absmiddle' src="/images/helpicon.gif">
+                        </td>
+                        <td>{{ degree.degree_books_authored }}</td>
+                    </tr>
+                    <tr>
+                        <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/edited.html',this);return false">
+                            Books Edited <img src="/images/helpicon.gif">
+                        </td>
+                        <td>{{ degree.degree_books_edited }}</td>
+                    </tr>
+                    <tr>
+                        <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/refereed.html',this);return false">
+                            Articles in Refereed Journals / Book Chapters <img src="/images/helpicon.gif">
+                        </td>
+                        <td>{{ degree.degree_journals }}</td>
+                    </tr>
+                    <tr>
+                        <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/otherpeer.html',this);return false">
+                            Other Peer-reviewed Scholarly Activity <img valign='absmiddle' src="/images/helpicon.gif">
+                        </td>
+                        <td>{{ degree.degree_other_peer }}</td>
+                    </tr>
+                    <tr>
+                        <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/nonpeer.html',this);return false">
+                            Non Peer-reviewed Scholarly Activity <img valign='absmiddle' src="/images/helpicon.gif">
+                        </td>
+                        <td>{{ degree.degree_non_peer }}</td>
+                    </tr>
+                    <tr>
+                        <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/confpres.html',this);return false">
+                            Conference Presentations <img valign='absmiddle' src="/images/helpicon.gif">
+                        </td>
+                        <td>{{ degree.degree_conference_presentation }}</td>
+                    </tr>
+                    <tr>
+                        <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/confattend.html',this);return false">
+                            Conference Attendance <img valign='absmiddle' src="/images/helpicon.gif">
+                        </td>
+                        <td>{{ degree.degree_conference_attendance }}</td>
+                    </tr>
+                    <tr>
+                        <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/student.html',this);return false">
+                            Student Publications <img valign='absmiddle' src="/images/helpicon.gif">
+                        </td>
+                        <td>{{ degree.degree_student_publications }}</td>
+                    </tr>
+                    <tr>
+                        <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/submitted.html',this);return false">
+                            Peer-reviewed Publications, Submitted <img valign='absmiddle' src="/images/helpicon.gif">
+                        </td>
+                        <td>{{ degree.degree_peer_reviewed_submitted }}</td>
+                    </tr>
+                    <tr>
+                        <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/grants.html',this);return false">
+                            Grants <img valign='absmiddle' src="/images/helpicon.gif">
+                        </td>
+                        <td>{{ degree.degree_grants }}</td>
+                    </tr>
+                    <tr>
+                        <td class='category' onclick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/service.html',this);return false">
+                            Scholarly Service <img valign='absmiddle' src="/images/helpicon.gif">
+                        </td>
+                        <td>{{ degree.degree_scholarly_service }}</td>
+                    </tr>
+                </table>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

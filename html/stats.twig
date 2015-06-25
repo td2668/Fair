@@ -1,0 +1,65 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<div id="cv_item_form" class='edit' style="text-align:center";>
+	<div class="padder">
+		<form name="form1" action="">
+			<input type='hidden' name='caqc_flag' value='{{ caqc_flag }}'>
+			<input type='hidden' name='norm_flag' value='{{ norm_flag }}'>
+
+			<p>Compare categories in one unit</p>
+			<SELECT name='unit'>
+				<option value='0'></option>
+		   		{{ div_options|raw }}
+		   	</select>
+
+		   	<select name='targ1'>
+			   <option value='0'></option>
+			   {{ targ_options1|raw }}
+		   	</select>
+
+		   	<select name='targ2'>
+			   <option value='0'></option>
+			   {{ targ_options2|raw }}
+		   	</select>
+
+		   	<br>
+		   	{{ disclaimer|raw }}
+		   	<br>
+
+		  	<img src='graph.php?unit={{ unit }}&amp;targ1={{ targ1 }}&amp;targ2={{ targ2 }}&amp;caqc_flag={{ caqc_flag }}&amp;norm_flag={{ norm_flag }}'>
+		   	<br>
+
+		   	<button name="refresh" type="submit">Refresh</button>
+		   	<br>
+		   	<br>
+		   	<hr style='color: #00b1c9;' width="100%" size="2">
+
+			<p>Compare two units using one category</p>
+			<SELECT name='unitb'>
+				<option value='0'></option>
+			   	{{ div_optionsb|raw }}
+		   	</select>
+
+		   	<select name='unitb2'>
+			   <option value='0'></option>
+			   {{ div_optionsb2|raw }}
+		   	</select>
+
+		   	<select name='targb'>
+			   <option value='0'></option>
+			   {{ targ_optionsb|raw }}
+		   	</select>
+
+		   	<br>
+		   	{{ disclaimer|raw }}
+		   	<br>
+
+		  	<img src='graph.php?unit={{ unitb }}&amp;unitb={{ unitb2 }}&amp;targ1={{ targb }}&amp;caqc_flag={{ caqc_flag }}&amp;norm_flag={{ norm_flag }}'>
+		   	<br>
+
+		   	<button name="refresh2" type="submit">Refresh</button>
+	 	</form>
+	</div>
+</div>
+{% endblock %}

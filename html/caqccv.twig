@@ -1,0 +1,31 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+	<div  id="cv_item_form" class='edit'>
+        <div class='padderwide'>
+	        <p style="font-size: 0.9em;">
+	          	This special-purpose CV for Quality Council reporting includes all the items where you have checked 'CAQC'.
+	        </p>
+
+			<p align="center">
+			  	<button onClick="document.location='cv_review_print.php?generate=caqc';" style="background:#FFAAAA;">Generate CV</button>
+			</p>
+
+			<p style="font-size: 0.9em;">
+			  	Note: Your teaching record from 2008 on is maintained within Banner and is automatically combined with any information you have entered under 'Courses Taught'.
+			  	If the two have the same subject and course number the data are merged. If you would prefer to use only the 'Courses Taught' section and omit the Banner data
+			  	then turn this option off.
+			</p>
+
+			<form name='form1' method="post" action="caqccv.php?togglebanner">
+			  	<p align="center">
+			  		Show Banner Data <input type="checkbox"  style="background:#FFAAAA;"  onmouseup="document.form1.submit()" name="togglebanner" {{ togglebanner }}>
+			  	</p>
+			</form>
+
+			{% if reply %}
+			  	<p align='center'>{{ reply }}</p>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

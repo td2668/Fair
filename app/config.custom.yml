@@ -1,0 +1,10 @@
+app:
+    debug: false
+
+database:
+    hostname: localhost
+
+site:
+    annualreports_url: http://annualreports.mtroyal.ca
+    researchweb_url: http://research.mtroyal.ca
+    template_debug: false

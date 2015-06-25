@@ -1,0 +1,45 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<div class='main-col'>
+
+    <form name="cv_item_form" id="cv_item_form" enctype="multipart/form-data" action="" onsubmit="isDirty=false;" method="post" class='edit'>
+        <div class="padder">
+            <input id="cas_type_id" type="hidden" name="cas_type_id" value="{{ cas_type_id }}" />
+            <input id="cas_heading_id" type="hidden" name="cas_heading_id" value="{{ cas_heading_id }}" />
+            <input id="cvItemId" type="hidden" name="cvItemId" value="{{ cv_item_id }}" />
+
+            <p><h3>Please select an Activity/Document Type.</h3></p>
+            <p>
+                <span class="enfasis">Type:</span>
+                <select class="item_type" id="cas_type_new" name="cas_type_new" onchange="ChangeType()">
+                    {% for cas_item in cas_types_new %}
+                        <option value="{{ cas_item.cas_type_id }}" {{ cas_item.cas_type_id_selected }}>{{ cas_item.type_name }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+            <div style='float:right; margin:20px;'>
+                <a href="#" class="button" name="mr_action" id="bt-save" onclick="return OnSave();"><span class="ui-icon ui-icon-disk"></span> Save Changes</a>
+            </div>
+        </div>
+    </form>
+
+    <div class="clear"></div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    function ChangeType() {
+        var status = true;
+        if ('{{ alert_message }}' != 'none') {
+            var message = '{{ alert_message }}';
+            status = confirm(message);
+        }
+
+        if (status) {
+            $('#bt-save').click();
+        }
+    }
+</script>
+{% endblock %}

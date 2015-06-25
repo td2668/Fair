@@ -1,0 +1,104 @@
+[22-Nov-2014 08:05:56 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 13
+[22-Nov-2014 08:05:56 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 13
+[22-Nov-2014 08:13:43 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 13
+[22-Nov-2014 08:13:43 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 13
+[22-Nov-2014 08:13:45 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 13
+[22-Nov-2014 08:13:45 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 13
+[22-Nov-2014 08:14:16 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:14:16 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:14:18 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:14:18 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:14:32 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:14:32 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:14:33 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:14:33 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:14:34 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:14:34 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:15:09 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:15:09 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:15:10 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:15:10 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:15:26 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:15:26 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:16:46 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:16:46 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:17:02 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:17:02 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 15
+[22-Nov-2014 08:17:39 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 16
+[22-Nov-2014 08:17:39 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 16
+[22-Nov-2014 08:17:54 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 16
+[22-Nov-2014 08:17:54 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 16
+[22-Nov-2014 08:18:24 America/Edmonton] PHP Warning:  require_once(/home/scholviu/public_html/fair/vendor/autoload.php): failed to open stream: No such file or directory in /home/scholviu/public_html/fair/includes/config.inc.php on line 16
+[22-Nov-2014 08:18:24 America/Edmonton] PHP Fatal error:  require_once(): Failed opening required '/home/scholviu/public_html/fair/vendor/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/scholviu/public_html/fair/includes/config.inc.php on line 16
+[22-Nov-2014 08:32:36 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[22-Nov-2014 08:33:24 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 14:46:31 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 14:48:32 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 14:48:34 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 14:50:18 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 14:55:40 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 14:55:41 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 14:55:48 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 14:55:56 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 14:58:47 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 14:58:48 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 14:58:49 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 14:58:55 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 14:59:11 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 15:11:32 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 15:12:43 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 15:12:44 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 15:12:45 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 15:13:11 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 15:13:38 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 15:14:29 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 15:15:10 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 15:15:38 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 19
+[23-Nov-2014 15:21:03 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 21
+[23-Nov-2014 15:29:03 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 21
+[23-Nov-2014 15:29:04 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 21
+[23-Nov-2014 15:29:06 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 21
+[23-Nov-2014 15:31:31 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 21
+[23-Nov-2014 15:31:33 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 21
+[23-Nov-2014 15:31:33 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 21
+[23-Nov-2014 15:31:35 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 21
+[23-Nov-2014 15:32:05 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 21
+[23-Nov-2014 15:34:16 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 23
+[23-Nov-2014 15:34:16 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 29
+[23-Nov-2014 15:34:39 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 23
+[23-Nov-2014 15:34:39 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 30
+[23-Nov-2014 15:34:39 America/Edmonton] PHP Notice:  Undefined variable: customConfig in /home/scholviu/public_html/fair/includes/config.inc.php on line 30
+[23-Nov-2014 15:34:39 America/Edmonton] PHP Warning:  array_replace_recursive(): Argument #1 is not an array in /home/scholviu/public_html/fair/includes/config.inc.php on line 30
+[23-Nov-2014 15:34:39 America/Edmonton] PHP Fatal error:  Class 'Monolog\Logger' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 45
+[23-Nov-2014 15:34:59 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 23
+[23-Nov-2014 15:34:59 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 35
+[23-Nov-2014 15:34:59 America/Edmonton] PHP Fatal error:  Class 'Monolog\Logger' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 45
+[23-Nov-2014 15:35:02 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 23
+[23-Nov-2014 15:35:02 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 35
+[23-Nov-2014 15:35:02 America/Edmonton] PHP Fatal error:  Class 'Monolog\Logger' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 45
+[23-Nov-2014 15:35:29 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 23
+[23-Nov-2014 15:35:29 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 35
+[23-Nov-2014 15:35:29 America/Edmonton] PHP Fatal error:  Class 'Monolog\Logger' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 45
+[23-Nov-2014 15:35:30 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 23
+[23-Nov-2014 15:35:30 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 35
+[23-Nov-2014 15:35:30 America/Edmonton] PHP Fatal error:  Class 'Monolog\Logger' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 45
+[23-Nov-2014 15:36:24 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 23
+[23-Nov-2014 15:36:24 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 35
+[23-Nov-2014 15:36:27 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 23
+[23-Nov-2014 15:36:27 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 35
+[23-Nov-2014 15:37:12 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 23
+[23-Nov-2014 15:37:12 America/Edmonton] PHP Notice:  Undefined variable: config in /home/scholviu/public_html/fair/includes/config.inc.php on line 35
+[23-Nov-2014 15:37:12 America/Edmonton] PHP Fatal error:  Class 'Monolog\Logger' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 48
+[23-Nov-2014 15:47:35 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 21
+[23-Nov-2014 15:48:56 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 21
+[23-Nov-2014 15:50:04 America/Edmonton] PHP Fatal error:  Class 'Symfony\Component\Yaml\Yaml' not found in /home/scholviu/public_html/fair/includes/config.inc.php on line 21
+[23-Nov-2014 17:05:02 America/Edmonton] PHP Fatal error:  Call to undefined function MRU\ldap_connect() in /home/scholviu/public_html/fair/vendor/conservatory/mru-ldap/MRU/Ldap.php on line 72
+[23-Nov-2014 17:13:12 America/Edmonton] PHP Notice:  Undefined index: cv_items in /home/scholviu/public_html/fair/includes/pdf.php on line 61
+[23-Nov-2014 17:13:12 America/Edmonton] PHP Notice:  Undefined index: cv_items in /home/scholviu/public_html/fair/includes/pdf.php on line 123
+[23-Nov-2014 17:13:25 America/Edmonton] PHP Notice:  Undefined index: cv_items in /home/scholviu/public_html/fair/includes/pdf.php on line 61
+[23-Nov-2014 17:13:25 America/Edmonton] PHP Notice:  Undefined index: cv_items in /home/scholviu/public_html/fair/includes/pdf.php on line 123
+[23-Nov-2014 17:34:16 America/Edmonton] PHP Notice:  Array to string conversion in /home/scholviu/public_html/fair/includes/cv_item.inc.php on line 415
+[23-Nov-2014 17:34:16 America/Edmonton] PHP Notice:  Array to string conversion in /home/scholviu/public_html/fair/includes/cv_item.inc.php on line 415
+[23-Nov-2014 17:34:16 America/Edmonton] PHP Notice:  Array to string conversion in /home/scholviu/public_html/fair/includes/cv_item.inc.php on line 415
+[23-Nov-2014 17:34:16 America/Edmonton] PHP Notice:  Array to string conversion in /home/scholviu/public_html/fair/includes/cv_item.inc.php on line 415
+[23-Nov-2014 17:35:13 America/Edmonton] PHP Strict Standards:  mktime(): You should be using the time() function instead in /home/scholviu/public_html/fair/aboutme.php on line 48

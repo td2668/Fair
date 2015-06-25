@@ -1,0 +1,32 @@
+-- Below is a list of the database tables currently used in the FAIR site
+-- When all the tables for all four research sites are known, any tables unused can then be removed
+admin
+ar_profiles
+ar_reports
+cas_cv_items
+cas_cv_items
+cas_cv_items
+cas_degree_types
+cas_field_index
+cas_headings
+cas_institution_departments
+cas_institutions
+cas_institutions
+cas_subtables
+cas_types
+course_teaching
+course_teaching
+courses
+cv_items
+degrees
+degrees_users
+departments
+divisions
+dtree
+profiles
+profiles
+projects
+projects_associated
+user_disable_banner
+users
+users_ext

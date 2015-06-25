@@ -1,0 +1,111 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <form name="cv_item_form" id="cv_item_form" action="" method="post" class="edit">
+        <div class="padder">
+            <div id="section-{{ page.cv_section_title }}" class="section" style="display: block;">
+                {% if page.categories %}
+                    <p>
+                        <div class="enfasis">Available Categories:</div>
+                        {% for category in page.categories %}
+                            {{ category.type_name }}
+
+                            {% if loop.last == false %} | {% endif %}
+                        {% endfor %}
+                    </p>
+                {% else %}
+                <a href="/dtree.php" class="button bt_cloneset">
+                    <span class="ui-icon ui-icon-help"></span> Help me choose a category &nbsp;
+                </a>
+                {% endif %}
+
+                <div class="sets"></div>
+
+                {% if page.add_item %}
+                    <a href="#" class="button bt_cloneset" name="add_item" id="add-button" onClick="document.location='?cas_heading_id={{ page.cas_heading_id }}&amp;mr_action=add'">
+                    <span class="ui-icon ui-icon-plusthick"></span> Add item</a>
+                {% endif %}
+
+                {% if cv_item_list %}
+                    <div class="cvItemList">
+                        <div class="cvItemsHeader">
+                            <div class="cvTargetHeadings">
+                                <span title="Annual Report">AR</span>
+                                <span title="Web Profile">Web</span>
+                                <span title="MRU CV">MRU</span>
+                                <span title="Quality Council CV">QC</span>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="cvTargetHeadings">
+                                &nbsp;
+                                <input type="checkbox" id="all_show_on_web" name="all_show_on_web" title="Select All"onClick="AjaxHeadingToggle('cas_cv_items',{{ page.cas_heading_id }},'web_show',$(this).is(':checked'))" {{ page.allweb_show }}>
+                                <input type="checkbox" id="all_show_on_my1" name="all_show_on_my1" title="Select All"onClick="AjaxHeadingToggle('cas_cv_items',{{ page.cas_heading_id }},'mycv1',$(this).is(':checked'))" {{ page.allmycv1 }}>
+                                <input type="checkbox" id="all_show_on_my2" name="all_show_on_my2" title="Select All"onClick="AjaxHeadingToggle('cas_cv_items',{{ page.cas_heading_id }},'mycv2',$(this).is(':checked'))" {{ page.allmycv2 }}>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        {% for list in cv_item_list %}
+                            <h3>{{ list.title }}</h3>
+
+                            <div class="sortable">
+                                {% for item in list.items %}
+                                    {% if item.type == "item1" %}
+                                        <div class="cvItem {{ item.tr_class }}" id="item_{{ item.cv_item_id }}">
+
+                                            {% if debug %}
+                                                <small style="float: right; display: inline-block;">Rank: {{ item.rank }}</small>
+                                            {% endif %}
+
+                                            <div class="cvTargetHeadings">
+                                                <input type="checkbox" class="chkreport_flag" id="report_flag{{ item.cv_item_id }}"name="report_flag{{ item.cv_item_id }}"onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ item.cv_item_id }},'report_flag',$(this).is(':checked'))"{{ item.report_flag }}>
+                                                <input type="checkbox" class="chkweb_show" id="web_show{{ item.cv_item_id }}"name="web_show{{ item.cv_item_id }}"onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ item.cv_item_id }},'web_show',$(this).is(':checked'))"{{ item.web_show }}>
+                                                <input type="checkbox" class="chkmycv1" id="my1{{ item.cv_item_id }}" name="my1{{ item.cv_item_id }}"onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ item.cv_item_id }},'mycv1',$(this).is(':checked'))"{{ item.mycv1 }}>
+                                                <input type="checkbox" class="chkmycv2" id="my2{{ item.cv_item_id }}" name="my2{{ item.cv_item_id }}"onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ item.cv_item_id }},'mycv2',$(this).is(':checked'))"{{ item.mycv2 }}>
+                                            </div>
+
+                                            <i class="fa fa-sort" style="cursor:  move"></i>
+
+                                            <a href="/cv.php?cas_heading_id={{ item.cas_heading_id }}&amp;mr_action=edit&amp;cv_item_id={{ item.cv_item_id }}"title="Edit this item">
+                                                {{ item.title|raw }}
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+    <div class="clear"></div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $(function() {
+        $( ".sortable" ).sortable({
+            handle: "i.fa",
+            update: function (e, ui) {
+                var sortableEl = $(ui.item).parents('.sortable');
+
+                // Disable sorting while we update things to prevent
+                // multiple updates to the same data running concurrently
+                sortableEl.sortable('disable');
+
+                // Send the updated order of the items
+                var itemsQuery = sortableEl.sortable('serialize');
+                $.get("/cv.php?mr_action=move&" + itemsQuery, function (response) {
+                    if (response.status != 'ok') {
+                        // Error updating rank
+                        $(ui.item).css('background', 'red');
+                    }
+
+                    sortableEl.sortable('enable');
+                });
+            }
+        }).disableSelection();
+    });
+</script>
+{% endblock %}

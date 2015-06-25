@@ -1,0 +1,40 @@
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://bitbucket.org/conservatory/adodb5.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://bitbucket.org/conservatory/jpgraph.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://bitbucket.org/conservatory/tcpdf.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:conservatory/mru-ldap.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:conservatory/mru-research-caqc.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:conservatory/mru-research-curriculum-vitae.git"
+        }
+    ],
+    "require": {
+        "conservatory/adodb5": "5.1.8",
+        "conservatory/jpgraph": "3.5.0",
+        "conservatory/mru-ldap": "1.1.0",
+        "conservatory/mru-research-caqc": "1.0.0",
+        "conservatory/mru-research-curriculum-vitae": "1.0.1",
+        "conservatory/tcpdf": "6.0.068",
+        "monolog/monolog": "1.9.1",
+        "symfony/http-foundation": "2.4.3",
+        "symfony/yaml": "2.4.3",
+        "twig/twig": "1.15.1"
+    }
+}

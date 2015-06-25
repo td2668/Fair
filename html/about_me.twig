@@ -1,0 +1,293 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <form name="profile_form" id="cv_item_form" action="aboutme.php" method="post" class='edit'>
+        <div class='padder'>
+
+            <div class="controls">
+                <a href="{{ site.researchweb_url }}/research.php?action=view&amp;type=researchers&amp;rid={{ profile.user_id }}" class="button"name="preview" id="bt-search" target="_blank">
+                    <span class="ui-icon ui-icon-search"></span> Preview on Web
+                </a>
+                <a href="#" class="button" name="savechanges" id="bt-save" onclick="document.forms['profile_form'].submit();">
+                    <span class="ui-icon ui-icon-disk"></span>
+                    Save Changes
+                </a>
+            </div>
+
+            <div class='aboutme'>
+                <br>
+                <p class="enfasis">Please review the following for accuracy.</p>
+
+                <h3><span class='name'>General Information</span></h3>
+
+                <div class='aboutme_section'>
+                    <table style="border:none;width:800px">
+                        <tr>
+                            <td>
+                                <span class='enfasis'>First Name</span>
+                                <br/>
+                                <input type="text"
+                                       onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges2.disabled=false"
+                                       name="first_name"
+                                       id="first_name"
+                                       title="first name"
+                                       value="{{ profile.first_name }}"
+                                       style="width:300px;font-size: 13px; font-family:monospace;" />
+                            </td>
+                            <td>
+                                <span class='enfasis'>Office</span>
+                                <br/>
+                                <input type="text"
+                                       onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges2.disabled=false"
+                                       name="office"
+                                       id="office"
+                                       title="office location"
+                                       value="{{ profile.office }}"
+                                       style="width:300px;font-size: 13px; font-family:monospace;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class='enfasis'>Last Name</span>
+                                <br/>
+                                <input type="text"
+                                       onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges2.disabled=false"
+                                       name="last_name"
+                                       id="last_name"
+                                       title="last name"
+                                       value="{{ profile.last_name }}"
+                                       style="width:300px;font-size: 13px; font-family:monospace;"/>
+                            </td>
+                            <td>
+                                <span class='enfasis'>Phone</span>
+                                <br/>
+                                <input type="text"
+                                       onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges2.disabled=false"
+                                       name="phone"
+                                       id="phone"
+                                       title="phone number"
+                                       value="{{ profile.phone }}"
+                                       style="width:300px;font-size: 13px; font-family:monospace;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class='enfasis'>Title</span>
+                                <br/>
+                                <input type="text"
+                                       onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges2.disabled=false"
+                                       name="title"
+                                       id="title"
+                                       title="job title"
+                                       value="{{ profile.title }}"
+                                       style="width:300px;font-size: 13px; font-family:monospace;"/>
+                            </td>
+                            <td>
+                                <span class='enfasis'>Fax</span>
+                                <br/>
+                                <input type="text"
+                                       onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges2.disabled=false"
+                                       name="fax"
+                                       id="fax"
+                                       title="fax number"
+                                       value="{{ profile.fax }}"
+                                       style="width:300px;font-size: 13px; font-family:monospace;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class='enfasis'>Secondary Title</span>
+                                <br/>
+                                <input type="text"
+                                       onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges2.disabled=false"
+                                       name="secondary_title"
+                                       id="secondary_title"
+                                       title="secondary title"
+                                       value="{{ profile.secondary_title }}"
+                                       style="width:300px;font-size: 13px; font-family:monospace;"/>
+                            </td>
+                            <td>
+                                <span class='enfasis'>Email</span>
+                                <br/>
+                                <input type="text"
+                                       onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges2.disabled=false"
+                                       name="email"
+                                       id="email"
+                                       title="email"
+                                       value="{{ profile.email }}"
+                                       style="width:300px;font-size: 13px; font-family:monospace;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>
+                                <span class='enfasis'>Personal Homepage</span>
+                                <br/>
+                                <input type="text"
+                                       onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges2.disabled=false"
+                                       name="homepage"
+                                       id="homepage"
+                                       maxlength="255"
+                                       title="personal webpage"
+                                       value="{{ profile.homepage }}"
+                                       style="width:300px; font-size: 13px; font-family:monospace;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class='enfasis'>Appointment Category</span>
+                                <br/>
+                                <select id="status"
+                                        name="status"
+                                        class="smallField"
+                                        onClick="document.profile_form.savechanges.disabled=false;"
+                                        style="width:300px; font-size: 13px; font-family:monospace;">
+                                    {% for status in profile.status %}
+                                        <option value="{{ status.value }}" {{ status.selected }}>{{ status.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td>
+                                <span class='enfasis'>Work Pattern</span>
+                                <br/>
+                                <select id="work_pattern"
+                                        name="work_pattern"
+                                        class="smallField"
+                                        onClick="document.profile_form.savechanges.disabled=false;"
+                                        style="width:300px; font-size: 13px; font-family:monospace;">
+                                    {% for pattern in profile.work_pattern %}
+                                        <option value="{{ pattern.value }}" {{ pattern.selected }}>{{ pattern.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class='enfasis'>Department</span>
+                                <br/>
+                                <select name="department_id"
+                                        onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges.disabled=false"
+                                        title="home department" style="width:300px; font-size: 13px; font-family:monospace;">
+                                    <option value="0">- Select a home Department -</option>
+                                    {% for department in profile.home_dept %}
+                                        <option value="{{ department.department_id }}" {{ department.department_selected }}>{{ department.department_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td>
+                                <span class='enfasis'>Cross-Appointed Dept.</span>
+                                <br/>
+                                <select name="department2_id"
+                                        onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges.disabled=false"
+                                        title="secondary department"
+                                        style="width:300px;font-size: 13px; font-family:monospace;">
+                                    <option value="0">- Select a secondary Department -</option>
+                                    {% for department in profile.second_dept %}
+                                        <option value="{{ department.department_id }}" {{ department.department_selected }}>{{ department.department_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class='enfasis'>Short profile statement (for annual report)</span>
+                                <br/>
+                                <textarea id="ar_profile"
+                                          name="ar_profile"
+                                          style="height:150px; width:100%"
+                                          maxlength="2000"
+                                          title="Highlight teaching, scholarship and service (if appropriate): describe yourself">{{ profile.ar_profile }}</textarea>
+                                <br />
+                                <br/>
+                                <i>(This profile, used only for the annual report, provides context and describes your role as you see it.)</i>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class='clear'></div>
+                <br/>
+
+                <h3>Web Profile</h3>
+                <div class="aboutme_section">
+                    <div style="height:125px; width:50%; display:inline-block">
+                        <h2 style="font:bold 1.2em georgia,times,serif;padding:7px 0 0 0;">Visibility</h2>
+                        <input type="checkbox" name='show_checkbox' onClick="document.forms['profile_form'].submit();" {% if not profile.user_level %}checked{% endif %}/> Show Profile On Web<br/>
+                        <input type="hidden" name="action" value="update">
+                    </div>
+
+                    <div style="height:125px; display:inline-block;  margin-left: 2em;">
+                        <h2 style="font:bold 1.2em georgia,times,serif;padding:7px 0 0 0;">Email Preferences</h2>
+
+                        <input type="checkbox" name='events_checkbox'
+                               onClick="document.forms['profile_form'].submit();"
+                               title='Enable or disable the automatic emailing of event notifications'
+                               {% if profile.mail_events %}checked{% endif %} />
+                        <label for="events_checkbox"title="Enable or disable the automatic emailing of event notifications">
+                            News &amp; Events
+                        </label>
+                        <br/>
+
+                        <input type="checkbox"
+                               name='deadlines_checkbox'
+                               onClick="document.forms['profile_form'].submit();"
+                               title='Enable or disable the automatic emailing of grant deadline notifications'
+                               {% if profile.mail_deadlines %}checked{% endif %} />
+                        <label title="Enable or disable the automatic emailing of grant deadline notifications" for="deadlines_checkbox">
+                            Deadline Notifications
+                        </label>
+                        <br/>
+                    </div>
+
+                    <div class='clear'></div>
+
+                    <div style="height:125px; margin-top: 1em; display:inline-block">
+                        <h3>Short profile statement</h3>
+                        <textarea name="profile_short"
+                                  onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges2.disabled=false"
+                                  id="profile_short"
+                                  title="short profile statement (will be used in listings)"
+                                  style="width:400px;height:75px; font-size: 0.9em; font-family:monospace;">{{ profile.profile_short }}</textarea>
+                    </div>
+
+                    <div style="height:125px; display:inline-block; margin-left: 2em;">
+                        <h3>Keywords</h3>
+                        <textarea name="keywords"
+                                  onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges2.disabled=false"
+                                  id="keywords"
+                                  title="keywords"
+                                  style="width:400px;height:75px; font-size: 0.9em; font-family:monospace;">{{ profile.keywords }}</textarea>
+                    </div>
+
+                    <div style="width:70%; margin-top: 1em; display:inline-table;">
+                        <h3>Full profile statement</h3>
+                        <textarea name="profile_ext"
+                                  onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges2.disabled=false"
+                                  id="profile_ext"
+                                  title="full profile statement (will be used when viewing the detailed profile)"
+                                  style="width:800px;height:125px; font-size: 13px; font-family:monospace;">{{ profile.profile_ext }}</textarea>
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <p>
+                        <i>(This profile is used on the public research website in your faculty profile.)</i>
+                    </p>
+                </div>
+
+                <div style="clear:both; margin-left: 20px">
+                    <br/>
+                    <a href="#" class="button" name="savechanges" id="bt-save2" onclick="document.forms['profile_form'].submit();">
+                        <span class="ui-icon ui-icon-disk"></span> Save Changes
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

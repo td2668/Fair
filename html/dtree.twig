@@ -1,0 +1,159 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<style type="text/css">
+p {
+   font-size: 13px;
+}
+
+.dtree {
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   float: left;
+}
+
+.col {
+   float: left;
+   border-left: 1px solid #aaa;
+   padding: 0;
+   height: 100%;
+}
+
+/* No border for the first column */
+#dtree .col:nth-child(1) {
+   border-left: 0;
+}
+
+.row {
+   border: 1px solid transparent;
+   cursor: pointer;
+   text-decoration: underline;
+   line-height: 22px;
+   padding: 0px 10px;
+}
+
+.row.selected {
+   border-top-color: #003049;
+   border-bottom-color: #003049;
+   background-color: #007AA5;
+   color: white;
+}
+
+.list-unstyled {
+   list-style: none;
+}
+
+.add-button {
+   clear: both;
+   width: 100%;
+   text-align: center;
+   border-top: 1px solid #ddd;
+   padding: 10px 0px;
+}
+
+.dtree h4 {
+   margin-top: 10px;
+   margin-bottom: 0;
+   margin-left: 10px;
+   margin-right: 10px;
+   border-bottom: 1px solid #ddd;
+}
+
+</style>
+
+<div id="cv_item_form" class="edit">
+   <div class="padder">
+      <div class="dtree">
+         <h4>CV Item Decision Tree</h4>
+         <div id="dtree"></div>
+         <div id="add-button" class="add-button" style="display: none"></div>
+      </div>
+
+      <div class="clear"></div>
+
+      <h4>Instructions</h4>
+      <p>
+         The CV Item Decision Tree can assist you in choosing an appropriate category for new CV items.
+      </p>
+
+      <p>
+         To get started, click one of the categories in the decision tree above:
+         <ul>
+            <li>A new list of related categories will then be displayed.</li>
+            <li>Continue clicking categories until the "Add Item" button appears.</li>
+            <li>Click the "Add Item" button to add a new CV item of that type.</li>
+         </ul>
+      </p>
+
+   </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+   var dtree = {{ dtree|raw }};
+   var types = {{ types|raw }};
+   var column = 1;
+   var parent = 0;
+
+   function generateTree() {
+      var result = '';
+      for (var k in dtree[column]) {
+         var rows = dtree[column][k];
+         if (parent == rows.parent) {
+            result +=  '<ul class="list-unstyled col col-' + column + '" style="float: left">';
+            for (var l in rows.items) {
+               var item = rows.items[l];
+               result += '<li class="row" data-col="' + column +'" data-id="' + item.id + '" data-target="' + item.target + '">' +
+                  item.name +
+               '</li>';
+            }
+            result += '<ul>';
+         }
+      }
+
+      return result;
+   }
+
+   function onRowClick(e) {
+      // Get the item data
+      var item = $(e.currentTarget).data();
+      column = item.col + 1;
+      parent = item.id;
+
+      // Bold the selected row
+      $(e.currentTarget).parent().find('.row').removeClass('selected');
+      $(e.currentTarget).addClass('selected');
+
+      // Remove any columns to the right of the current column
+      for (var i=column; i<20; i++) {
+         $('.col-' + i).remove();
+      }
+
+      // Clear the add button
+      $('#add-button').html('').hide();
+
+      // Generate the column html
+      var columnHtml = generateTree();
+      if (columnHtml.length > 0) {
+         $('#dtree').append(columnHtml);
+         $('.row').unbind().click(onRowClick);
+      } else {
+         for (var i in types) {
+            var type = types[i];
+            if (type.id == item.target) {
+               $('#add-button').html(
+                  '<a href="/cv.php?cas_heading_id=' + type.heading_id + '&cas_type_id=' + type.id + '&mr_action=save" class="button bt_cloneset">' +
+                     '<span class="ui-icon ui-icon-plusthick"></span> Add ' + type.name +
+                  '</a>'
+               ).show();
+               return;
+            }
+         }
+      }
+   }
+
+   $('#dtree').append(generateTree());
+   $('.row').click(onRowClick);
+</script>
+{% endblock %}

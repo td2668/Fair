@@ -1,0 +1,8 @@
+{
+    "name": "conservatory/mru-research-caqc",
+    "description": "Handles CAQC stats",
+    "type": "library",
+    "autoload": {
+        "psr-4": {"MRU\\Research\\": "MRU\\Research"}
+    }
+}

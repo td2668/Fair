@@ -1,0 +1,106 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <div id="cv_item_form" class='edit'>
+        <div class='padder'>
+
+            <h2>UPDATES/FAQs on the CAQC CV Process</h2>
+            <ul>
+                <li><b>(Aug 20) Added 'Other Employment' to 'Professional Experience'</b></li>
+                <li>(Aug 14) Tweaks to categories removing 'Applies to my Scholarship' from some. No longer necessary for any entries</li>
+                <li>(Aug 13) To check if items will show in the CAQC CV, note the yellow status banner that appears when you save the item. It will show the CAQC category, if any, it fits in. If no category shows when expected then something is amiss. See list below</li>
+                <li>The most common problem experienced is that the 'Role' drop-down was not used. For a conference paper, you need to indicate if you were an author or just presented. For author, choose the role AND select 'published'. Tick 'refereed' if appropriate. This determines which category it shows in.</li>
+                <li>(Aug 12) An error was found where a blank 'role' in a journal paper was ignored. A blank role now means 'author'.</li>
+                <li>(Aug 12) The CAQC Counts only refer to the numbers sent in the spring to give a snapshot of activity. It uses different criteria from the CV process, and is triggered via your AR (Annual Report) selection. Please ignore for this process.</li>
+                <li>(Aug 12) Here are the items used in each of the CAQC categories. <i>These are based on some complex criteria documents put out by the CAQC. But if we missed any categories you think should be included please let us know (email to Trevor Davis or Randy Genereux)</i>
+                <br><br>
+                <dl>
+                    <dt><b>Books Authored</b></dt>
+                    <dd>'Books' with any status except 'In Prep' and Role='Authored' or 'Co-authored'</dd>
+                    <br>
+
+                    <dt><b>Books Edited</b></dt>
+                    <dd>'Books' with any status except 'In Prep' and Role='Edited' or 'Co-edited'</dd>
+                    <br>
+
+                    <dt><b>Articles in Ref Journals/Book Chapters</b></dt>
+                    <dd>
+                        'Journal Article' where refereed=ticked, status=accepted or better (or blank), and role=author, co-author or blank<br>
+                        'Book Chapters' where role='Author' or 'Co-Author' and status=Accepted or better<br>
+                        'Conference Papers' where published=ticked, status=accepted (or better or blank), refereed=ticked, role='Author' or 'Co-author'
+                    </dd>
+                    <br>
+
+                    <dt><b>Other Peer-reviewed Schol Activity</b></dt>
+                    <dd>
+                        'Posters' if refereed<br>
+                        'Research Presentations' if Competitive=ticked
+                    </dd>
+                    <br>
+
+                    <dt><b>Non Peer-reviewed Schol Activity</b></dt>
+                    <dd>
+                        'Contracts' where Status='received' <br>
+                        Any 'Book Reviews'<br>
+                        Any 'Dissertations'<br>
+                        'Conference Papers' as above but not refereed<br>
+                        Any 'Conference Abstract'<br>
+                        Any item under 'Artistic/Performance' if Juried<br>
+                        'Newsletter Articles'<br>
+                        'Encyclopedia Entries'<br>
+                        Patents, Licenses, Disclosures etc.<br>
+                        'Posters' if not refereed<br>
+                        'Research Presentations' if Competitive=false
+                    </dd>
+                    <br>
+
+                    <dt><b>Conference Presentations</b></dt>
+                    <dd>'Conference Papers' where Role='Presenter' (set to 'author' if paper was published)</dd>
+                    <br>
+
+                    <dt><b>Conference Attendance</b></dt>
+                    <dd>'Event Participation' where type='Conference'</dd>
+                    <br>
+
+                    <dt><b>Student Publications</b></dt>
+                    <dd>
+                        Any 'Journal Article' with student=ticked<br>
+                        'Book Chapters' as above with student=ticked<br>
+                        'Supervised Students Pubs' where status=accepted or better<br>
+                        'Conference Papers' as above with student=ticked
+                    </dd>
+                    <br>
+
+                    <dt><b>Peer-reviewed Pubs, Submitted</b></dt>
+                    <dd>As per journal articles above but status=submitted or in review</dd>
+                    <br>
+
+                    <dt><b>Grants</b></dt>
+                    <dd>'Grants' where Status='Received'</dd>
+                    <br>
+
+                    <dt><b>Scholarly Service</b></dt>
+                    <dd>
+                        Any 'Editorial Activities';<br>
+                        Any 'Journal Reviewing'<br>
+                        'Grant Application Assessment' where type='Funder'<br>
+                        Any 'Institutional Review'<br>
+                        Any 'Journal Issues'
+                    </dd>
+                    <br>
+
+                    <dt><b>Professional Memberships</b></dt>
+                    <dd>Any 'Membership in Scholarly Societies..'</dd>
+                    <br>
+
+                    <dt><b>Professional Qualifications</b></dt>
+                    <dd>Any 'Professional Designations' (Under Post-sec Educ History) and "Professional Certifications" (Under Particip/Memberships)</dd>
+                    <br>
+
+                    <dt><b>Professional Experience</b></dt>
+                    <dd>Any 'Consulting/Advising', 'Interviews', 'Clinical', 'Other Prof Activities'</dd>
+                </dl>
+            </ul>
+    	</div>
+    </div>
+{% endblock %}

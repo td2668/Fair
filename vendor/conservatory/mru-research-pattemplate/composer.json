@@ -1,0 +1,5 @@
+{
+  "name": "conservatory/mru-research-pattemplate",
+  "description": "The patTemplate class, bundled with PEAR dependencies",
+  "type": "library"
+}

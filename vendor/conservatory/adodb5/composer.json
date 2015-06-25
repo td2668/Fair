@@ -1,0 +1,5 @@
+{
+  "name": "conservatory/adodb5",
+  "description": "A composer-compatible version of adodb, from http://adodb.sourceforge.net",
+  "type": "library"
+}

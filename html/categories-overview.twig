@@ -1,0 +1,18 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <div id="cv_item_form" class="edit">
+        <div class="padder">
+            <h1>FAIR - Available Categories</h1>
+            <p>
+                The categories match national standards for faculty CV data. Where needed,
+                we have added additional categories to better fit MRU.
+            </p>
+
+            {% for category in cv_header_list %}
+                <h2>{{ category.heading_name }}</h2>
+                <div style='margin-left: 50px'>{{ category.title|raw }}</div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

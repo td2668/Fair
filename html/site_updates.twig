@@ -1,0 +1,91 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <style type="text/css">
+        h4 {
+            border-bottom: 1px solid black;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .update .note {
+            padding-left: 20px;
+        }
+    </style>
+
+    {% if is_site_updated %}
+        <div class="notice">
+            The FAIR site has been updated since you last signed in.
+        </div>
+    {% endif %}
+
+    <div id="cv_item_form" class="edit">
+        <div style="padding: 0px 20px; font-size: 13px">
+
+            <div class="update" data-date-added="2014-05-08">
+                <h4>May 8, 2014</h4>
+
+                <div class="note">
+                    <p>
+                        Added drag and drop functionality to the <a href="/cv.php">My Activites</a> pages, allowing CV items to be sorted by dragging
+                        and dropping them within their individual sections:<br />
+                        <br />
+                        <img src="/images/site-updates/2014-05-08_drag-and-drop-cv-items.gif" alt="Drag and Drop Example" style="border: 1px solid #ddd" />
+                    </p>
+                </div>
+            </div>
+
+            <div class="update" data-date-added="2014-05-07">
+                <h4>May 7, 2014</h4>
+
+                <div class="note">
+                    <p>
+                        Added a "Help me choose a category" button to the top of the <a href="/cv.php">My Activites</a> page
+                        <ul>
+                            <li>Clicking the "Help me choose a category" button will bring you to the <a href="/dtree.php">CV Item decision tree</a></li>
+                        </ul>
+                        <img src="/images/site-updates/2014-05-07_help-me-choose-a-category-button.png" alt="Help me choose a category button" style="border: 1px solid #ddd" />
+                    </p>
+                </div>
+            </div>
+
+            <div class="update" data-date-added="2014-05-06">
+                <h4>May 6, 2014</h4>
+
+                <div class="note">
+                    <p>
+                        Added a <a href="/dtree.php">CV Item decision tree</a>, which will help determine which category a new CV item should be added to.<br>
+                        <br>
+                        <img src="/images/site-updates/2014-05-06_cv-item-decision-tree.gif" alt="CV item decision tree" style="border: 1px solid #ddd" />
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(function () {
+            // Hilight the sections that have been updated since the users last visit
+            var lastVisitTimestamp = {{ user.last_visit }};
+            var updates = $('.update');
+            for (var i=0; i < updates.length; i++) {
+                var dateAdded = $(updates[i]).data('dateAdded');
+                if (strtotime(dateAdded) > lastVisitTimestamp) {
+                    // Add "New" to the title
+                    var h4 = $(updates[i]).find('h4');
+                    $(h4).html($(h4).text() + ' <strong style="padding-right: 10px; color: green">(New)</strong>');
+
+                    // Add a left hand border
+                    $(updates[i]).css({
+                        borderLeft: "10px solid green",
+                        paddingLeft: "10px"
+                    })
+                }
+            }
+        });
+    </script>
+{% endblock %}

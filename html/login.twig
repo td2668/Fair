@@ -1,0 +1,25 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <div id="cv_item_form" class="edit" style="width: 100%; text-align: center">
+        <h1>MRU - Faculty Academic Information Reporting</h1>
+
+        <p class="enfasis">Use your standard university login to access your personal database.</p>
+
+        <form id="loginform" method="post" action="/login.php">
+            <input name="action" type="hidden" value="login"  />
+            <div class="inputrow">
+                <label for="username">Username</label>
+                <input id="username" name="username" />
+            </div>
+            <div class="inputrow">
+                <label for="password" style="padding-right: 2px;">Password</label>
+                <input id="password" name="password" type="password" />
+            </div>
+            <div class="actionsrow">
+                <input name="submit" id="submitbutton" value="Sign In" type="submit"  />
+            </div>
+        </form>
+        <p></p>
+    </div>
+{% endblock %}

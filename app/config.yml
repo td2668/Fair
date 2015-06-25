@@ -1,0 +1,31 @@
+app:
+    debug: false
+    log_name: fair
+    log_path: app/logs
+    log_level: 100 # Debug: 100, Info: 200, Notice: 250, Warning: 300, Error: 400, Critical: 500, Alert: 550, Emergency: 600
+
+auth:
+    ldap:
+        host: ldap-dmz.mtroyal.ca
+        port: 389
+        dn: uid=readonly,o=MRC
+        password: readingrailroad$200
+        search_dn: o=MRC
+    master_password: "*kwhale1"
+
+cv_items:
+    subfields_text_length: 30
+    subfields_num_length: 10
+
+database:
+    hostname: localhost
+    username: ors
+    password: rilinc
+    database: research
+
+site:
+    annualreports_url: http://fair.localhost
+    researchweb_url: http://local.research
+    template_debug: true
+    google_analytics_id: UA-370886-18
+    last_updated_date: 2014-05-07 # The date when new features were last added to the site. Highlights/redirects users to the Site Updates page.

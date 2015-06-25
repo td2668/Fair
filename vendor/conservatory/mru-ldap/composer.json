@@ -1,0 +1,9 @@
+{
+    "name": "conservatory/mru-ldap",
+    "description": "An LDAP library",
+    "type": "library",
+    "autoload": {
+        "psr-4": {"MRU\\": "MRU"}
+    }
+} 
+

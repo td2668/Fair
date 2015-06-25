@@ -1,0 +1,8 @@
+{
+    "name": "conservatory/mru-research-curriculum-vitae",
+    "description": "Curriculum Vitae classes",
+    "type": "library",
+    "autoload": {
+        "psr-4": {"MRU\\Research\\": "MRU\\Research"}
+    }
+}

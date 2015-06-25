@@ -1,0 +1,5 @@
+{
+  "name": "conservatory/tcpdf",
+  "description": "TCPDF is a free and open source software PHP class for generating PDF documents, from http://www.tcpdf.org/",
+  "type": "library"
+}

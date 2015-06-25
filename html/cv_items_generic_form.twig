@@ -1,0 +1,208 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<div class='main-col'>
+
+    <form name="cv_item_form" id="cv_item_form" enctype="multipart/form-data" action="" onsubmit="isDirty=false;" method="post" class='edit'>
+        <div class="padder">
+            <input id="cas_type_id" type="hidden" name="cas_type_id" value="{{ cas_type_id }}" />
+            <input id="cas_type_id2" type="hidden" name="cas_type_id2" value="{{ cas_type_id }}" />
+            <input id="cas_heading_id" type="hidden" name="cas_heading_id" value="{{ cas_heading_id }}" />
+            <input id="cvItemId" type="hidden" name="cvItemId" value="{{ cv_item_id }}" />
+
+            <div class='cv_item_preview' id="cv_item_preview">
+                <h3>Preview</h3>
+                <div id="item_preview" class="preview">
+                    {{ preview|raw }}
+                </div>
+                <em style="font-size: 0.8em;">Please save your changes to update the preview</em>
+            </div>
+
+            <div class="controls">
+                <span id="notice" class='notce'></span>
+                <a href="#" class="button" name="mr_action" id="bt-delete" onclick="return DeleteRecord();"><span class="ui-icon ui-icon-trash"></span> Delete</a>
+                <a href="#" class="button" name="mr_action" id="bt-save" onclick="return OnSave();"><span class="ui-icon ui-icon-disk"></span> Save Changes</a>
+            </div>
+
+            <p class='preview show-on-my' style="width: 50%">
+                <label> Show on my: </label>
+                <input type="checkbox" class="chkreport_flag" title="Show this item in my current year annual report." id="report_flag{{ cv_item_id }}" name="report_flag{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'report_flag',$(this).is(':checked'));ToggleRelatedTo();"{{ report_flag }}>Annual Report
+                <input type="checkbox" class="chkweb_show" title="Display this item in my on-line cv/profile. You can activate this profile by logging in to the research website and setting a checkbox in your Profile page. Contact the ORS for help." id="web_show{{ cv_item_id }}" name="web_show{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'web_show',$(this).is(':checked'))"{{ web_show }}>Web Profile
+                <input type="checkbox" class="chkmycv1" title="Display this item in custom CV #1. This CV may be printed using the Review/Print link on the left." id="my1{{ cv_item_id }}" name="my1{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'mycv1',$(this).is(':checked'))"{{ mycv1 }}>My CV
+                <input type="checkbox" class="chkmycv2" title="Display this item in quality council report. This CV may be printed using the Review/Print link on the left." id="my2{{ cv_item_id }}" name="my2{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'mycv2',$(this).is(':checked'))"{{ mycv2 }}>CAQC
+            </p>
+
+            <div id="relatedto" style='margin-bottom: 20px; display:{{ relatedto }}'>
+                <p class='preview related-to-my' style="width: 50%">
+                    <label>
+                        Activity is related to my:
+                        <img class='helpimg' src='/images/helpicon.gif' alt='?'onClick="ajax_toggleTooltip(window.event,'/html/caqc_tooltips/details.html',this);return false"/>
+                    </label>
+                    <input onclick="ToggleDetails(this,'div_teaching')" type="checkbox" name="n_teaching" id="n_teaching"  value="1" {{ n_teaching_check }} />Teaching
+                    <input onclick="ToggleDetails(this,'div_scholarship')" type="checkbox" name="n_scholarship" id="n_scholarship"  value="1" {{ n_scholarship_check }} />Scholarship
+                    <input onclick="ToggleDetails(this,'div_service')" type="checkbox" name="n_service" id="n_service"  value="1" {{ n_service_check }} />Service &nbsp;&nbsp;&nbsp;
+                </p>
+
+                <div id="div_teaching" style="{{ div_teaching_toggle }}">
+                    Annual Report Details - Teaching<br/>
+                    <textarea name="details_teaching" cols="80" rows="5">{{ details_teaching }}</textarea>
+                </div>
+
+                <div id="div_scholarship" style="{{ div_scholarship_toggle }}">
+                    Annual Report Details - Scholarship<br/>
+                    <textarea name="details_scholarship" cols="80" rows="5">{{ details_scholarship }}</textarea>
+                </div>
+
+                <div id="div_service" style="{{ div_service_toggle }}">
+                    Annual Report Details - Service<br/>
+                    <textarea name="details_service" cols="80" rows="5">{{ details_service }}</textarea>
+                </div>
+            </div>
+
+            {% for item in cv_item_fields %}
+                {% if item.ftype == "hidden" %}
+                    <input type="hidden" name="{{ item.f_formname }}" id="{{ item.f_formname }}" value="{{ item.fvalue }}" />
+                {% else %}
+                    <div class="formrow">
+                        <label for="{{ item.f_formname }}">
+                            {{ item.fname }}
+                            <img class='helpimg' style="{{ item.hidehelp }}"src='/images/helpicon.gif' alt='?'onClick="ajax_toggleTooltip(window.event,'/help.php?field_index_id={{ item.fieldindexid }}',this);return false"/>
+                        </label>
+
+                        <div class='cv_item_field'>
+                            {% if item.ftype == "text" %}
+                                <input type="text"
+                                       name="{{ item.f_formname }}"
+                                       id="{{ item.f_formname }}"
+                                       value="{{ item.fvalue }}"
+                                       size="{{ item.fsize }}"
+                                       maxlength="{{ item.fmaxlength }}"
+                                       title="{{ item.fexample }}"/>
+
+                            {% elseif item.ftype == "author" %}
+                                Last name:
+                                <input type="text"
+                                       name="{{ item.f_formname }}[lastname]"
+                                       id="{{ item.f_formname }}_lastname"
+                                       value="{{ item.fvaluelname }}"
+                                       size="25"
+                                       maxlength="{{ item.fmaxlength }}"
+                                       title="{{ item.fexample }}" />
+
+                                <div class="addfield">
+                                    First Name/Initial:
+                                    <input type="text"
+                                           name="{{ item.f_formname }}[firstname]"
+                                           id="{{ item.f_formname }}_firstname"
+                                           value="{{ item.fvaluefname }}"
+                                           size="25"
+                                           maxlength="{{ item.fmaxlength }}"
+                                           title="{{ item.fexample }}" />
+                                </div>
+
+                            {% elseif item.ftype == "list" %}
+                                <select name="{{ item.f_formname }}" id="{{ item.f_formname }}">
+                                    {{ item.foptions|raw }}
+                                </select>
+                                <div class="addfield">
+                                    {{ item.faddfield|raw }}
+                                </div>
+
+                            {% elseif item.ftype == "sub" %}
+                                {{ item.extrafields|raw }}
+
+                            {% elseif item.ftype == "num" %}
+                                <input type="text" name="{{ item.f_formname }}" id="{{ item.f_formname }}" value="{{ item.fvalue }}" title="{{ item.fexample }}"class="numField"/> (numbers only)
+
+                            {% elseif item.ftype == "date" %}
+                                <select name="{{ item.f_formname }}[year]">{{ item.f_yearoptions|raw }}</select> /
+                                <select name="{{ item.f_formname }}[month]">{{ item.f_monthoptions|raw }}</select> /
+                                <select name="{{ item.f_formname }}[day]">{{ item.f_dayoptions|raw }}</select>
+
+                            {% elseif item.ftype == "textarea" %}
+                                <textarea class="fullAreaField" name="{{ item.f_formname }}" id="{{ item.f_formname }}" title="{{ item.fexample }}">{{ item.fvalue }}</textarea>
+
+                            {% elseif item.ftype == "checkbox" %}
+                                <input type="checkbox" name="{{ item.f_formname }}" id="{{ item.f_formname }}" value="1" {{ item.f_check }} />
+
+                            {% elseif item.ftype == "file" %}
+                                <p>{{ item.fvalue }}</p>
+                                <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
+                                <input name="{{ item.f_formname }}" id="{{ item.f_formname }}" type="file"/>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <div style='float:right; '>
+                <a href="#" class="button" name="mr_action" id="bt-delete" onclick="return DeleteRecord();"><span class="ui-icon ui-icon-trash"></span> Delete</a>
+                <a href="#" class="button" name="mr_action" id="bt-save" onclick="return OnSave();"><span class="ui-icon ui-icon-disk"></span> Save Changes</a>
+            </div>
+        </div>
+    </form>
+
+    <div class="clear"></div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    var isDirty = false;
+    var isReminder = false;
+    var msg = 'You haven\'t saved your changes.';
+    $(document).ready(function() {
+
+        $(':input').change(function(){
+            if(!isDirty){
+                isDirty = true;
+            }
+            specialCharCleanup(this);
+        });
+
+        $(':input').keydown(function(){
+            if(!isReminder){
+                isReminder = true;
+                setTimeout(function(){
+                    alert('Please remember to save your changes.');
+                    isReminder = false;
+                },1800000);
+            }
+        });
+
+        window.onunload = function(){
+            if(isDirty){
+                return msg;
+            }
+        };
+    });
+
+
+    function DeleteRecord() {
+        var message = 'Are you sure that you want to permanently delete this item?  This action cannot be undone.';
+        var status = confirm(message);
+        if (status) {
+            document.location='?cas_heading_id={{ cas_heading_id }}&mr_action=Delete&cv_item_id=' + $('#cv_item_id').val();
+        } else {
+            return false;
+        }
+    }
+
+    function ToggleDetails(checkbox,div){
+        if ($(checkbox).attr('checked')){
+            $('#' + div).show('fast');
+        }else{
+            $('#' + div).hide('fast');
+        }
+    }
+
+    // If the user has "Annual Report" checked, but no "Activity related to my" checked, flash "Activity related to my"
+    var checkedShowOnAnnualReport = $('input.chkreport_flag:checked').length > 0;
+    var checkedActivityRelatedTo = $('.related-to-my').find('input:checked').length > 0;
+    if (checkedShowOnAnnualReport && !checkedActivityRelatedTo) {
+        ToggleRelatedTo();
+        ToggleRelatedTo();
+    }
+</script>
+{% endblock %}
