@@ -41,6 +41,7 @@ if ($config['app']['debug']) {
 }
 //error_reporting(E_ALL);
 
+
 // Setup logging
 $log = new \Monolog\Logger($config['app']['log_name']);
 $log->pushHandler(new \Monolog\Handler\StreamHandler(ROOT_PATH . '/' . $config['app']['log_path'] . '/' . $config['app']['log_name'] . '.log', $config['app']['log_level']));
