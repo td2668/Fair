@@ -1,5 +1,5 @@
 app:
-    debug: false
+    debug: true
     log_name: fair
     log_path: app/logs
     log_level: 100 # Debug: 100, Info: 200, Notice: 250, Warning: 300, Error: 400, Critical: 500, Alert: 550, Emergency: 600

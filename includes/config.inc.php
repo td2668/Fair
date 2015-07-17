@@ -39,18 +39,21 @@ if ($config['app']['debug']) {
     error_reporting(0);
     ini_set('display_errors', 0);
 }
-//error_reporting(E_ALL);
-
-
-// Setup logging
-$log = new \Monolog\Logger($config['app']['log_name']);
-$log->pushHandler(new \Monolog\Handler\StreamHandler(ROOT_PATH . '/' . $config['app']['log_path'] . '/' . $config['app']['log_name'] . '.log', $config['app']['log_level']));
+ini_set('display_errors', 1);
+//error_reporting(E_ALL & ~E_NOTICE & -E_DEPRECATED);
+error_reporting(E_ERROR | E_WARNING | E_PARSE );
 
 // Setup the include paths
 set_include_path(implode(PATH_SEPARATOR, array(
     VENDOR_PATH . '/conservatory/',
     get_include_path(),
 )));
+
+// Setup logging
+$log = new \Monolog\Logger($config['app']['log_name']);
+$log->pushHandler(new \Monolog\Handler\StreamHandler(ROOT_PATH . '/' . $config['app']['log_path'] . '/' . $config['app']['log_name'] . '.log', $config['app']['log_level']));
+
+
 
 
 
@@ -108,7 +111,7 @@ define ("MRUPDF_H3_FONT_FACE", 'trebuc');
 define ("MRUPDF_H3_FONT_SIZE", 10);
 define ("MRUPDF_H4_FONT_FACE", 'trebuc');
 define ("MRUPDF_H4_FONT_SIZE", 12);
-define ("MRUPDF_REGULAR_FONT_FACE", 'times');
+define ("MRUPDF_REGULAR_FONT_FACE", 'freeserif');
 define ("MRUPDF_REGULAR_FONT_SIZE", 10);
 define ("MRUPDF_SMALLER_FONT_FACE", 'times');
 define ("MRUPDF_SMALLER_FONT_SIZE", 9);

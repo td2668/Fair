@@ -567,7 +567,8 @@ border-bottom:none;
     margin:10px 0px 1px 0px;
 }
 #viewresearcher *.cv_entries {
-    margin-bottom: 3px;
+    margin-bottom: 4px;
+    font-size:12px;
 }
 
 #listprojects {
@@ -1084,6 +1085,7 @@ tr.odd td {
 
 #cv_item_form input {
     margin-top: 2px;
+    font-size: 13px;
 }
 
 #cv_item_form select {
@@ -1179,8 +1181,8 @@ ul.printul li{
 }
 
 .preview {
-    border-bottom: thin black solid;
-    border-top: thin black solid;
+   /* border-bottom: thin black solid;
+    border-top: thin black solid;*/
     padding-left:10px;
     color: #336600;
     background-color: white;

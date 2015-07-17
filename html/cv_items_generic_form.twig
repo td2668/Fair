@@ -1,9 +1,14 @@
 {% extends "layout.twig" %}
 
+
 {% block content %}
+<link rel="stylesheet" type="text/css" href="/vendor/conservatory/markdown/demo.css" />
+		<script src="/vendor/conservatory/markdown/Markdown.Converter.js"></script>
+		<script src="/vendor/conservatory/markdown/Markdown.Sanitizer.js"></script>
+		<script src="/vendor/conservatory/markdown/Markdown.Editor.js"></script>
 <div class='main-col'>
 
-    <form name="cv_item_form" id="cv_item_form" enctype="multipart/form-data" action="" onsubmit="isDirty=false;" method="post" class='edit'>
+    <form name="cv_item_form" id="cv_item_form" enctype="multipart/form-data" action="" onsubmit="isDirty=false;" method="post" class='edit' accept-charset="utf-8">
         <div class="padder">
             <input id="cas_type_id" type="hidden" name="cas_type_id" value="{{ cas_type_id }}" />
             <input id="cas_type_id2" type="hidden" name="cas_type_id2" value="{{ cas_type_id }}" />
@@ -13,8 +18,15 @@
             <div class='cv_item_preview' id="cv_item_preview">
                 <h3>Preview</h3>
                 <div id="item_preview" class="preview">
-                    {{ preview|raw }}
+                   {% if  preview  %} 
+                   	{{ preview|raw }}
+                   {% else %}
+	                   <div id="wmd-preview" ></div>
+	               {% endif %}
                 </div>
+                
+                 
+                
                 <em style="font-size: 0.8em;">Please save your changes to update the preview</em>
             </div>
 
@@ -24,14 +36,8 @@
                 <a href="#" class="button" name="mr_action" id="bt-save" onclick="return OnSave();"><span class="ui-icon ui-icon-disk"></span> Save Changes</a>
             </div>
 
-            <p class='preview show-on-my' style="width: 50%">
-                <label> Show on my: </label>
-                <input type="checkbox" class="chkreport_flag" title="Show this item in my current year annual report." id="report_flag{{ cv_item_id }}" name="report_flag{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'report_flag',$(this).is(':checked'));ToggleRelatedTo();"{{ report_flag }}>Annual Report
-                <input type="checkbox" class="chkweb_show" title="Display this item in my on-line cv/profile. You can activate this profile by logging in to the research website and setting a checkbox in your Profile page. Contact the ORS for help." id="web_show{{ cv_item_id }}" name="web_show{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'web_show',$(this).is(':checked'))"{{ web_show }}>Web Profile
-                <input type="checkbox" class="chkmycv1" title="Display this item in custom CV #1. This CV may be printed using the Review/Print link on the left." id="my1{{ cv_item_id }}" name="my1{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'mycv1',$(this).is(':checked'))"{{ mycv1 }}>My CV
-                <input type="checkbox" class="chkmycv2" title="Display this item in quality council report. This CV may be printed using the Review/Print link on the left." id="my2{{ cv_item_id }}" name="my2{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'mycv2',$(this).is(':checked'))"{{ mycv2 }}>CAQC
-            </p>
-
+            
+{#
             <div id="relatedto" style='margin-bottom: 20px; display:{{ relatedto }}'>
                 <p class='preview related-to-my' style="width: 50%">
                     <label>
@@ -58,7 +64,43 @@
                     <textarea name="details_service" cols="80" rows="5">{{ details_service }}</textarea>
                 </div>
             </div>
-
+#}
+			<div class="formrow" style="margin-bottom: 20px; display:visible">
+				
+				<label for="formatted" style="text-align:top;">Formatted Item</label><br>
+				<div class="wmd-panel">
+			 		<div id="wmd-button-bar"></div>
+			 		<textarea class="wmd-input" id="wmd-input" name="formatted" cols="80" rows="5">{{details_formatted}}</textarea>
+			 		<br>
+			 	</div>
+			 	
+			</div>
+			
+			<br><br clear='left'>
+		
+		 <div  style="float:left; padding-top:10px;">
+                <label> Show on my: </label>
+{#                 <input type="checkbox" class="chkreport_flag" title="Show this item in my current year annual report." id="report_flag{{ cv_item_id }}" name="report_flag{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'report_flag',$(this).is(':checked'));ToggleRelatedTo();"{{ report_flag }}>Annual Report #}
+                <input type="checkbox" class="chkweb_show" title="Display this item in my on-line cv/profile. You can activate this profile by logging in to the research website and setting a checkbox in your Profile page. Contact the ORS for help." id="web_show{{ cv_item_id }}" name="web_show{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'web_show',$(this).is(':checked'))"{{ web_show }}>Web Profile
+                <input type="checkbox" class="chkmycv1" title="Display this item in custom CV #1. This CV may be printed using the Review/Print link on the left." id="my1{{ cv_item_id }}" name="my1{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'mycv1',$(this).is(':checked'))"{{ mycv1 }}>My CV1
+                <input type="checkbox" class="chkmycv2" title="Display this item in quality council report. This CV may be printed using the Review/Print link on the left." id="my2{{ cv_item_id }}" name="my2{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'mycv2',$(this).is(':checked'))"{{ mycv2 }}>My CV2
+            </div>
+		</div>
+		<br><br>	 	
+    
+				<div class="formrow">
+					<label for="show_details">Show Details</label>
+					<div class='cv_item_field'>
+						<input type="checkbox" name="show_details" {{ show_details }} value="1" onclick="return OnSave();" />
+					</div>
+				</div>
+				
+				
+			 <div id="detailsection"
+				{% if show_details %} 
+					style="display:block;" 
+				{% else %} style="display:none;" {%endif%}
+				>
             {% for item in cv_item_fields %}
                 {% if item.ftype == "hidden" %}
                     <input type="hidden" name="{{ item.f_formname }}" id="{{ item.f_formname }}" value="{{ item.fvalue }}" />
@@ -135,6 +177,7 @@
                     </div>
                 {% endif %}
             {% endfor %}
+			</div>
 
             <div style='float:right; '>
                 <a href="#" class="button" name="mr_action" id="bt-delete" onclick="return DeleteRecord();"><span class="ui-icon ui-icon-trash"></span> Delete</a>
@@ -158,7 +201,8 @@
             if(!isDirty){
                 isDirty = true;
             }
-            specialCharCleanup(this);
+            //Disabled by TD 20150707 to avoid conflicts with new formatted field. Now the routine converts &ndash to an actual ndash
+            //specialCharCleanup(this);
         });
 
         $(':input').keydown(function(){
@@ -205,4 +249,39 @@
         ToggleRelatedTo();
     }
 </script>
+
+<script type="text/javascript">
+            (function () {
+	           
+                var converter1 = Markdown.getSanitizingConverter();
+                
+                converter1.hooks.chain("preBlockGamut", function (text, rbg) {
+                    return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+                        return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+                    });
+                });
+                var help = function () { alert("Do you need help?"); }
+                var options = {
+                    helpButton: { handler: help },
+                    strings: { quoteexample: "whatever you're quoting, put it right here" }
+                };
+                
+                converter1.hooks.chain("postConversion", function (text) {
+					return text.replace(/(@firstname@)/gi, "John");
+    			});
+    			
+                
+                var editor1 = new Markdown.Editor(converter1,"",options);
+                
+                
+                editor1.run();
+                
+                
+
+                
+                
+                
+                
+            })();
+        </script>
 {% endblock %}

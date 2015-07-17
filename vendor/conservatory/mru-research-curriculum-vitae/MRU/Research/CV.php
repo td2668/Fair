@@ -34,6 +34,17 @@ class CV {
         //For error messages
         $errhead = "<font color='red'>";
         $errtail = "</font>";
+        
+        if(strlen($cv_item['formatted']) > 0) {
+            $result=$cv_item['formatted'];
+            //require_once('parsedown/Parsedown.php');
+            $Parsedown = new Parsedown();			
+			$result= $Parsedown->text($cv_item['formatted']); 
+			$result=trim($result,"<p>");
+        	$result=trim($result,"</p>");
+            
+        }
+        else {
         switch ($cv_item['cas_type_id']) {
             case 1:
 
@@ -2412,126 +2423,130 @@ class CV {
             case 35:
 
                 ////////////////// Journal Article  //////////////////////////
-                $ref = self::authorList($ref, $user, $cv_item, 'n14', 'n15', $cv_item['n13'], $target);
-                if ($cv_item['n09'] != '0000-00-00') {
-                    $ref['date'] = self::formatDate($cv_item['n09']);
-                }
-
-                if ($cv_item['n01'] != '') {
-                    $ref['title'] = self::cleanText($cv_item['n01']);
-                }
-
-                if ($cv_item['n02'] != '0') {
-                    $sql = "SELECT * FROM `cas_research_journals` where `id`='$cv_item[n02]'";
-                    $journal = $db->getRow($sql);
-                    if ($journal) {
-                        $ref['journal'] = $journal['name'];
-                    }
-                }
-
-                if ($cv_item['n03']) {
-                    $ref['refereed'] = TRUE;
-                }
-
-                if ($cv_item['n05'] != '') {
-                    $ref['volume'] = $cv_item['n05'];
-                }
-
-                if ($cv_item['n06'] != 0) {
-                    $ref['issue'] = $cv_item['n06'];
-                }
-
-                if ($cv_item['n07'] != 0) {
-                    $ref['from'] = $cv_item['n07'];
-                }
-
-                if ($cv_item['n08'] != 0) {
-                    $ref['to'] = $cv_item['n08'];
-                }
-
-                if ($cv_item['n04'] != 0) {
-                    $sql = "SELECT * FROM `cas_publication_statuses` WHERE `id`='$cv_item[n04]'";
-                    $status = $db->getRow($sql);
-                    if ($status) {
-                        $ref['status'] = $status['name'];
-                    }
-                }
-
-                if ($cv_item['n04'] == 0 || $cv_item['n04'] > 4) {
-                    $ref['published'] = TRUE;
-                }
-
-                if ($style == 'apa') {
-                    $result = '';
-                    if (isset($ref['firstauthor'])) {
-                        $result .= $ref['firstauthor'];
-                    }
-
-                    if (isset($ref['authors'])) {
-                        while ($ref['authors']) {
-                            if (count($ref['authors']) == 1) {
-                                $connector = ', & ';
-                            } else {
-                                $connector = ', ';
-                            }
-
-                            if (self::isetal($ref['authors'][0])) {
-                                $connector = ', ';
-                            }
-                            $result .= $connector . $ref['authors'][0];
-                            array_shift($ref['authors']);
-                        }
-                    }
-
-                    if (isset($ref['date'])) {
-                        $result .= ' (' . $ref['date'] . ').';
-                    }
-
-                    if (isset($ref['title'])) {
-                        $result .= ' ' . $ref['title'] . '.';
-                    }
-
-                    if (isset($ref['journal'])) {
-                        $result .= ' <i>' . $ref['journal'] . '</i>';
-                    }
-
-                    if (isset($ref['volume']) && isset($ref['issue'])) {
-                        $result .= ", <i>$ref[volume]</i>($ref[issue])";
-                    } elseif (isset($ref['volume']) && !isset($ref['issue'])) {
-                        $result .= ", <i>$ref[volume]</i>";
-                    } elseif (isset($ref['issue'])) {
-                        $result .= ", ($ref[issue])";
-                    }
-
-                    if (isset($ref['from'])) {
-                        $result .= ", $ref[from]";
-                        if (isset($ref['to'])) {
-                            $result .= "-$ref[to]";
-                        }
-                    }
-
-                    if (isset($ref['status'])) {
-                        $result .= " ($ref[status])";
-                    }
-
-                    if (substr($result, strlen($result) - 1, 1) != '.') {
-                        $result .= '.';
-                    }
-
-                    if ($target != 'list') {
-                        if (isset($ref['refereed'])) {
-                            if ($ref['refereed']) {
-                                $icons .= "<img src='images/referee-flag-icon.png' alt='Refereed' title='Refereed'>";
-                            }
-                        }
-
-                        if (isset($ref['published'])) {
-                            if ($ref['published']) {
-                                $icons .= "<img src='images/book-icon.png' alt='Published' title='Published'>";
-                            }
-                        }
-                    }
-                }
+                //New test
+                 
+               
+	                $ref = self::authorList($ref, $user, $cv_item, 'n14', 'n15', $cv_item['n13'], $target);
+	                if ($cv_item['n09'] != '0000-00-00') {
+	                    $ref['date'] = self::formatDate($cv_item['n09']);
+	                }
+	
+	                if ($cv_item['n01'] != '') {
+	                    $ref['title'] = self::cleanText($cv_item['n01']);
+	                }
+	
+	                if ($cv_item['n02'] != '0') {
+	                    $sql = "SELECT * FROM `cas_research_journals` where `id`='$cv_item[n02]'";
+	                    $journal = $db->getRow($sql);
+	                    if ($journal) {
+	                        $ref['journal'] = $journal['name'];
+	                    }
+	                }
+	
+	                if ($cv_item['n03']) {
+	                    $ref['refereed'] = TRUE;
+	                }
+	
+	                if ($cv_item['n05'] != '') {
+	                    $ref['volume'] = $cv_item['n05'];
+	                }
+	
+	                if ($cv_item['n06'] != 0) {
+	                    $ref['issue'] = $cv_item['n06'];
+	                }
+	
+	                if ($cv_item['n07'] != 0) {
+	                    $ref['from'] = $cv_item['n07'];
+	                }
+	
+	                if ($cv_item['n08'] != 0) {
+	                    $ref['to'] = $cv_item['n08'];
+	                }
+	
+	                if ($cv_item['n04'] != 0) {
+	                    $sql = "SELECT * FROM `cas_publication_statuses` WHERE `id`='$cv_item[n04]'";
+	                    $status = $db->getRow($sql);
+	                    if ($status) {
+	                        $ref['status'] = $status['name'];
+	                    }
+	                }
+	
+	                if ($cv_item['n04'] == 0 || $cv_item['n04'] > 4) {
+	                    $ref['published'] = TRUE;
+	                }
+	
+	                if ($style == 'apa') {
+	                    $result = '';
+	                    if (isset($ref['firstauthor'])) {
+	                        $result .= $ref['firstauthor'];
+	                    }
+	
+	                    if (isset($ref['authors'])) {
+	                        while ($ref['authors']) {
+	                            if (count($ref['authors']) == 1) {
+	                                $connector = ', & ';
+	                            } else {
+	                                $connector = ', ';
+	                            }
+	
+	                            if (self::isetal($ref['authors'][0])) {
+	                                $connector = ', ';
+	                            }
+	                            $result .= $connector . $ref['authors'][0];
+	                            array_shift($ref['authors']);
+	                        }
+	                    }
+	
+	                    if (isset($ref['date'])) {
+	                        $result .= ' (' . $ref['date'] . ').';
+	                    }
+	
+	                    if (isset($ref['title'])) {
+	                        $result .= ' ' . $ref['title'] . '.';
+	                    }
+	
+	                    if (isset($ref['journal'])) {
+	                        $result .= ' <i>' . $ref['journal'] . '</i>';
+	                    }
+	
+	                    if (isset($ref['volume']) && isset($ref['issue'])) {
+	                        $result .= ", <i>$ref[volume]</i>($ref[issue])";
+	                    } elseif (isset($ref['volume']) && !isset($ref['issue'])) {
+	                        $result .= ", <i>$ref[volume]</i>";
+	                    } elseif (isset($ref['issue'])) {
+	                        $result .= ", ($ref[issue])";
+	                    }
+	
+	                    if (isset($ref['from'])) {
+	                        $result .= ", $ref[from]";
+	                        if (isset($ref['to'])) {
+	                            $result .= "-$ref[to]";
+	                        }
+	                    }
+	
+	                    if (isset($ref['status'])) {
+	                        $result .= " ($ref[status])";
+	                    }
+	
+	                    if (substr($result, strlen($result) - 1, 1) != '.') {
+	                        $result .= '.';
+	                    }
+	
+	                    if ($target != 'list') {
+	                        if (isset($ref['refereed'])) {
+	                            if ($ref['refereed']) {
+	                                $icons .= "<img src='images/referee-flag-icon.png' alt='Refereed' title='Refereed'>";
+	                            }
+	                        }
+	
+	                        if (isset($ref['published'])) {
+	                            if ($ref['published']) {
+	                                $icons .= "<img src='images/book-icon.png' alt='Published' title='Published'>";
+	                            }
+	                        }
+	                    }
+	                }
+	             
 
                 //switch style
                 break;
@@ -6742,7 +6757,9 @@ class CV {
                 }
 
                 break;
-        }
+        }//end switch
+        
+        }//end else
 
         //switch type
         return $result;
@@ -7430,3 +7447,5 @@ class CV {
         return $result;
     }
 }
+
+

@@ -62,6 +62,7 @@ switch ($mrAction) {
         break;
 
     case 'save':
+    	
         $vars = getPageVariables('cv_items_generic_form');
         $vars['cas_heading_id'] = $casHeadingId;
 
@@ -125,4 +126,7 @@ $vars['header']['title'] = $pageTitle;
 
 // Render the template
 $vars = BuildSidebarSubmenu($casHeadingId, $vars);
+//echo('<pre>');
+//print_r($vars);
+//echo('</pre>');
 echo $twig->render($templateName . '.twig', $vars);

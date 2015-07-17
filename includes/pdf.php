@@ -1383,7 +1383,7 @@ function AddParagraphPlain(&$pdf, $text) {
     SetNormal($pdf);
 
     //First convert everything to HTML - to get extended char set across
-    $text = htmlentities($text, ENT_COMPAT, 'cp1252');
+    $text = htmlentities($text, ENT_COMPAT, 'UTF-8');
 
     //But this also converts existing markup, so now change all &lt and &gt back so that italics will work.
     $text = htmlspecialchars_decode($text, ENT_NOQUOTES);
@@ -1401,7 +1401,7 @@ function AddParagraphPlain(&$pdf, $text) {
  */
 function AddParagraphSummary(&$pdf, $text) {
     SetNormal($pdf);
-    $text = htmlentities($text, ENT_COMPAT, 'cp1252');
+    $text = htmlentities($text, ENT_COMPAT, 'UTF-8');
     $text = htmlspecialchars_decode($text, ENT_NOQUOTES);
     SetSmaller($pdf);
     $pdf->SetX(30);

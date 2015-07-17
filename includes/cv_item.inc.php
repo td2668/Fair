@@ -155,23 +155,30 @@ function GenerateEditForm($cvItemId, $page, $userId, $casHeadingId = false) {
 
     // if we have a specific type, populate the form field template variables (otherwise we are just prompting for a type)
     if ($typeId && sizeof($item) > 0) {
-        $preview = \MRU\Research\CV::formatitem($item, 'apa', 'screen');
-        $vars['preview'] = $preview;
+	    //if the formatted version exists then use that instead.
+	    if($item['formatted'] != '') {}
+	    	//$vars['preview']=$item['formatted'];
+	    else {
+        	$preview = \MRU\Research\CV::formatitem($item, 'apa', 'screen');
+        	$preview=trim($preview,"<p>");
+        	$preview=trim($preview,"</p>");
+			$vars['preview'] = $preview;
+		}
         $vars['relatedto'] = $item['report_flag'] == 1 ? 'block' : 'none';
-
+		
         // get the type meta data
         $sql = "SELECT * FROM `cas_field_index` WHERE `cas_type_id` = {$typeId} ORDER BY `order`";
         $typeData = $db->getAll($sql);
         if ($typeData) {
             $vars['page_item'] = $item;
 
-            // 20090309 CSN what is this?
+            
             foreach ($typeData as $fieldMeta) {
                 if ($fieldMeta["field_name"] != "") {
                     $fieldType = strtolower($fieldMeta["type"]);
                     $field = array();
                     $field["f_formname"] = $fieldMeta["cas_cv_item_field"];
-                    $field["fvalue"] = htmlentities($item[$fieldMeta["cas_cv_item_field"]]);
+                    $field["fvalue"] = ($item[$fieldMeta["cas_cv_item_field"]]);
                     if ($fieldMeta["size"] > 0) {
                         $field["fsize"] = $fieldMeta["size"];
                     } else {
@@ -278,6 +285,7 @@ function GenerateEditForm($cvItemId, $page, $userId, $casHeadingId = false) {
                                 $field["fvaluelname"] = isset($values[0]) ? $values[0] : null;
                                 $field["fvaluefname"] = isset($values[1]) ? $values[1] : null;
                             }
+                            
                         case "num":
                             break;
 
@@ -325,6 +333,14 @@ function GenerateEditForm($cvItemId, $page, $userId, $casHeadingId = false) {
     $vars['details_teaching'] = isset($item['details_teaching']) ? $item['details_teaching'] : null;
     $vars['details_service'] = isset($item['details_service']) ? $item['details_service'] : null;
     $vars['details_scholarship'] = isset($item['details_scholarship']) ? $item['details_scholarship'] : null;
+    
+    $vars['details_formatted'] = $item['formatted'];
+    
+    if (isset($item['show_details']) && $item['show_details'] == '1') {
+        $vars['show_details'] = "checked";
+    } else {
+        $vars['show_details'] = '';
+    }
 
 
     if (isset($item['n_teaching']) && $item['n_teaching'] == '1') {
@@ -365,7 +381,7 @@ function GenerateEditForm($cvItemId, $page, $userId, $casHeadingId = false) {
             $vars['mycv2'] = 'checked';
         }
     }
-
+    
     return $vars;
 }
 
@@ -383,7 +399,8 @@ function SaveForm($cvItemId, $userId) {
         'new_header' => false,
         'status_message' => null
     );
-
+//print_r($_POST);
+	
     //get the item data
     if (isset($_POST["cas_type_new"])) {
         $typeId = (isset($_POST["cas_type_new"])) ? CleanString($_POST["cas_type_id"]) : false;
@@ -410,7 +427,7 @@ function SaveForm($cvItemId, $userId) {
         $fields = array();
         foreach ($typeData as $fieldMeta) {
             if ($fieldMeta["field_name"] != "") {
-                $fieldName = $fieldMeta["cas_cv_item_field"];
+                $fieldName = $fieldMeta["cas_cv_item_field"]; 
                 $fieldType = strtolower($fieldMeta["type"]);
                 $_POST[$fieldMeta["field_name"]] = isset($_POST[$fieldName]) ? addslashes(strval($_POST[$fieldName])) : null;
                 switch ($fieldType) {
@@ -514,8 +531,9 @@ function SaveForm($cvItemId, $userId) {
                         if ($fieldMeta['subtype'] == 'author') {
                             $_POST[$fieldName] = implode('|', $_POST[$fieldName]);
                         }
-
+						$_POST[$fieldName]=html_entity_decode($_POST[$fieldName]);
                         $_POST[$fieldName] = mysql_real_escape_string($_POST[$fieldName]);
+                        
                     case "num":
                     default:
                         $fields[] = "$fieldName = \"" . $_POST[$fieldName] . '"';
@@ -544,6 +562,21 @@ function SaveForm($cvItemId, $userId) {
         } else {
             $fields[] = 'n_service = 0';
         }
+        
+        //formatted item 
+        if(isset($_POST['formatted'] ))
+        	//$_POST['formatted']=html_entity_decode($_POST['formatted']);
+        	$fields[] = "formatted = '" . mysql_real_escape_string($_POST['formatted']) . "'";
+        	
+        
+        //flag for detail show/hide
+        if (isset($_POST['show_details']) && $_POST['show_details'] == 1) {
+            $fields[] = 'show_details = 1';
+        } else {
+            $fields[] = 'show_details = 0';
+        }
+        
+        
 
         if (count($fields)) {
             $updateThis = "," . implode(",", $fields);
@@ -553,10 +586,12 @@ function SaveForm($cvItemId, $userId) {
         } else {
             $updateThis = '';
         }
+        //echo('<pre>' . $updateThis .'</pre>');
 
         //do the update
         $sql = "UPDATE cas_cv_items SET current_par = 1, reminder_date=NOW(), cas_type_id = {$typeId} {$updateThis}
             WHERE user_id = {$userId} AND cv_item_id = {$cvItemId}";
+            //echo($sql);
         if ($db->Execute($sql) == false) {
             $statusMesssage .= 'Sorry, an error occurred (update query failed).';
         } else {
@@ -778,6 +813,8 @@ function PopulateList($userId, $casHeadingId, $vars) {
             if (!$title) {
                 $title = "No title has been generated for this item yet.";
             }
+            $title=trim($title,"<p>");
+            $title=trim($title,"<\p>");
 
             $cvData[$sectionIndex]['items'][$sectionItemIndex]["title"] = $title;
             $cvData[$sectionIndex]['items'][$sectionItemIndex]["rank"] = $item['rank'];

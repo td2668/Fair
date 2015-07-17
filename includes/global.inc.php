@@ -146,31 +146,27 @@ function getPageVariables($pageName) {
             break;
 
         case 'activities':
-            $pageTitle = "AR Activities";
+            $pageTitle = "Activities";
             break;
 
-        case 'web':
-            $pageTitle = "MRU CV";
+        case 'webpreview':
+            $pageTitle = "Web Preview";
             break;
 
-        case 'caqccv':
-            $pageTitle = "CAQC CV";
+        case 'mycv1':
+            $pageTitle = "My CV #1";
             break;
 
-        case 'caqc':
-            $pageTitle = "CAQC Stats";
+        case 'mycv2':
+            $pageTitle = "My CV #2";
             break;
 
-        case 'caqchelp':
-            $pageTitle = "CAQC Help";
-            break;
-
-        case 'ar':
-            $pageTitle = "Annual Report Site";
+        case 'mycv3':
+            $pageTitle = "My CV #3";
             break;
 
         case 'categories-overview':
-            $pageTitle = "FAIR - Categories";
+            $pageTitle = "Categories";
             break;
 
         case 'login':
@@ -178,7 +174,7 @@ function getPageVariables($pageName) {
             break;
 
         case 'index':
-            $pageTitle = 'Faculty Academic Information Reporting';
+            $pageTitle = 'VIU Academic Information DB';
             break;
 
         case 'stats':
@@ -186,7 +182,7 @@ function getPageVariables($pageName) {
             break;
 
         default:
-            $pageTitle = "Faculty Academic Information Reporting";
+            $pageTitle = "VIU Academic Information DB";
             break;
     }
 
@@ -251,21 +247,27 @@ function getPageVariables($pageName) {
             array(
                 'url' => 'content.php?page=review_print',
                 'name' => 'Review | Print',
-                'selected' => in_array($pageName, array('review_print', 'caqchelp', 'caqc', 'caqccv')),
+                'selected' => in_array($pageName, array('review_print', 'webpreview', 'mycv1', 'mycv2')),
                 'submenu' => array(
                     array(
-                        'url' => 'cv_review_print.php?generate=report_flag',
-                        'name' => 'AR Activities',
+                        'url' => 'webpreview.php',
+                        'name' => 'Web List',
+                        'selected' => ($pageName == 'webpreview'),
                     ),
                     array(
                         'url' => 'cv_review_print.php?generate=mycv1',
-                        'name' => 'MRU CV',
+                        'name' => 'My CV 1',
                     ),
                     array(
-                        'url' => 'caqccv.php',
-                        'name' => 'CAQC CV',
-                        'selected' => ($pageName == 'caqccv'),
+                        'url' => 'cv_review_print.php?generate=mycv2',
+                        'name' => 'My CV 2',
+//                         'selected' => ($pageName == 'caqccv'),
                     ),
+                    array(
+                        'url' => 'cv_review_print.php?generate=mycv3',
+                        'name' => 'My CV 3',
+                    ),
+/*
                     array(
                         'url' => 'caqc.php',
                         'name' => 'CAQC Stats',
@@ -276,6 +278,7 @@ function getPageVariables($pageName) {
                         'name' => 'CAQC HELP',
                         'selected' => ($pageName == 'caqchelp'),
                     ),
+*/
                 ),
             ),
             array(
@@ -283,12 +286,14 @@ function getPageVariables($pageName) {
                 'name' => "Site Updates",
                 'selected' => isset($_GET['page']) && $_GET['page'] == 'site_updates'
             ),
+/*
             array(
                 'url' => $config['site']["annualreports_url"] . '/content.php?page=annual_report&session_id=' . $session->getId(),
                 'name' => "Annual Reports",
                 'selected' => false,
                 'class' => 'external',
             ),
+*/
         ),
         'footer' => array(
             'copyright_year' => date('Y'),
