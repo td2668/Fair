@@ -1,0 +1,176 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+	<div  id="cv_item_form" class='edit'>
+        <div class='padderwide'>
+	        <p style="font-size: 0.9em;">
+	          	This is a preview of how your information <i>may</i> look on the web, depending on local customizations.
+	        </p>
+			
+		
+		<div class="research_main">
+
+		<div id="viewresearcher">
+			<h1>Faculty Profile</h1><br />
+			{% if not user.id %}
+					<b>Researcher not found.</b>
+			{% else %}   
+
+				
+{#
+					<patTemplate:tmpl name="maindiv_floater" type="condition" conditionVar="IMG_URL" varscope="RESEARCHER">
+					  <patTemplate:sub condition="__empty">
+						<div class="withoutimage">
+                            <table width="500" cellpadding="0" cellspacing="0" >
+                            <tr><td width="250" valign="top"> 
+                            <b style='font-size:14px;'>{FIRST_NAME} {LAST_NAME}</b>
+                            <br />  
+                            <patTemplate:link src="title_" />
+                            <patTemplate:link src="secondary_title_" />
+                            <br />
+                            <patTemplate:link src="department_title" /><patTemplate:link src="department_title2" />
+                            <patTemplate:link src="department_" />
+                            <patTemplate:link src="secondary_department_" />
+                            </td>
+                            <td width="10">&nbsp;</td>
+                            <td width="250" valign="top">
+                                <table cellpadding="0" cellspacing="0">
+                                <patTemplate:link src="office_" />                                                                         
+                                <patTemplate:link src="phone_" />                     
+                                <patTemplate:link src="fax_" />
+                                </table>
+                                <patTemplate:link src="email_" />
+                                <patTemplate:link src="homepage_" />
+                                                                                           
+                            </td></tr><tr><td>&nbsp;</td></tr></table>
+                            <div style='text-align:justify;'>
+                            
+                            <patTemplate:var name="PROFILE_EXT" modifier="nl2br"  />
+                            </div>
+                               
+                                   <patTemplate:link src="PROJECT_TITLE" />
+                               
+                            
+                            <patTemplate:link src="educ_title" />
+                            <patTemplate:link src="awards_title" />
+                            <div class='secondsection'>
+                            <patTemplate:link src="pubs_title" />
+                            <patTemplate:link src="else" />
+                            </div>
+                        </div>
+					  </patTemplate:sub>
+#}
+
+				<div class="withimage" >  
+                	<table>
+                		<tr>
+                			<td valign="top">
+								{% if img_url %}
+									<img src="{{ img_url }}"  /><br />
+								{% endif %}
+								<b style='font-size:14px;'>{{ researcher.first_name }} {{ researcher.last_name }}</b>
+								<br />
+								{% if researcher.title %}
+									{{ researcher.title }}<br />
+								{% endif %}
+								{% if secondary_title %}
+									{SECONDARY_TITLE}<br />
+								{% endif %}
+								<br />
+								{% if researcher.department_name %}
+									<b>Department</b><br />
+									{{ researcher.department_name }}<br />
+								{% endif %}				
+								<br />
+								<table cellpadding="0" cellspacing="0">
+									{% if researcher.office %}
+										<tr><td style="width:50px;margin:3px 0px;font-size:12px;">office:</td><td>{{ researcher.office }}</td></tr>
+									{% endif %}
+									{% if researcher.phone %}
+										<tr><td  style="width:50px;margin:3px 0px;">phone:</td><td>{{ researcher.phone }}</td></tr>
+									{% endif %}
+									{% if researcher.fax %}
+										<tr><td>fax:</td><td>{{ researcher.fax }}</td></tr>
+									{% endif %}
+								</table>
+								{% if researcher.email %}
+									<span class='codedirection'>{{ researcher.email }}</span> <br />
+									<br />
+								{% endif %}
+								{% if researcher.homepage %}
+									<a href="{HOMEPAGE}">Personal Homepage</a><br />
+								{% endif %}
+								<br />
+							</td>
+							<td width="10">&nbsp;</td> 
+							<td valign="top">
+							{% if researcher.ar_profile %}
+								<div style='text-align:justify;'>
+								{{ researcher.ar_profile|nl2br }}
+								</div>	
+								<br/>
+							{% endif %}
+							<div style='text-align:justify;'>
+								{{ researcher.profile_ext|nl2br }}
+							</div>
+							
+						</td>
+					</tr>
+				</table>    
+				{% if projects_list %}
+                    <div class='cv_title'>Projects</div>
+                        <ul>                                             
+							{% for project in projects_list %}							                                         
+                            	<li><a href="research.php?action=view&type=project&pid={{ project.project_id }}" title="{{ project.project_name }}">{{ project.project_name }}</a></li>    
+                            {% endfor %}                                                           
+						</ul>
+                {% endif %}
+                
+                {% if educ_list %}
+                    <div class='cv_title'>Education</div>
+                    {% for ed in educ_list %}
+                        <div class="cv_entries">{{ ed|raw }}</div>   
+                    {% endfor %}               
+                {% endif %}
+
+				{% if awards_list %}
+                    <div class='cv_title'>Awards and Distinctions</div>
+                    {% for award in awards_list %}
+                        <div class="cv_entries">{{ award|raw }}</div>  
+                    {% endfor %}                
+                {% endif %}
+                    
+                <div class="secondsection">
+                {% if pubs_list %}
+                    <div class='cv_title'>Recent Publications</div>
+                    {% for pub in pubs_list %}
+                        <div class="cv_entries">{{ pub|raw }}</div>                   
+                    {% endfor %}
+                {% endif %}
+                    
+                {% if proc_list %}
+                    <div class='cv_title'>Conference Presentations</div>
+                    {% for proc in proc_list %}
+                        <div class="cv_entries">{{ proc|raw }}</div>                    
+                    {% endfor %}
+                {% endif %}
+                    
+                {% if else_list %}
+                    
+                    {{ else_list|raw }}                  
+                   
+                {% endif %}
+                    <br/>                      
+                 </div>
+                       		
+			
+			
+			{% endif %} 
+			
+
+			{% if reply %}
+			  	<p align='center'>{{ reply }}</p>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
