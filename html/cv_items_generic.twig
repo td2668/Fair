@@ -30,17 +30,18 @@
                     <div class="cvItemList">
                         <div class="cvItemsHeader">
                             <div class="cvTargetHeadings">
-                                <span title="Annual Report">AR</span>
-                                <span title="Web Profile">Web</span>
-                                <span title="MRU CV">MRU</span>
-                                <span title="Quality Council CV">QC</span>
+                            	<span title="Web Profile">Web</span>
+                                <span title="My CV1">CV1</span>                                
+                                <span title="My CV2">CV2</span>
+                                <span title="My CV3">CV3</span>
                             </div>
                             <div class="clear"></div>
                             <div class="cvTargetHeadings">
-                                &nbsp;
+                                
                                 <input type="checkbox" id="all_show_on_web" name="all_show_on_web" title="Select All"onClick="AjaxHeadingToggle('cas_cv_items',{{ page.cas_heading_id }},'web_show',$(this).is(':checked'))" {{ page.allweb_show }}>
                                 <input type="checkbox" id="all_show_on_my1" name="all_show_on_my1" title="Select All"onClick="AjaxHeadingToggle('cas_cv_items',{{ page.cas_heading_id }},'mycv1',$(this).is(':checked'))" {{ page.allmycv1 }}>
                                 <input type="checkbox" id="all_show_on_my2" name="all_show_on_my2" title="Select All"onClick="AjaxHeadingToggle('cas_cv_items',{{ page.cas_heading_id }},'mycv2',$(this).is(':checked'))" {{ page.allmycv2 }}>
+                                <input type="checkbox" id="all_show_on_report" name="all_show_on_report" title="Select All"onClick="AjaxHeadingToggle('cas_cv_items',{{ page.cas_heading_id }},'report_flag',$(this).is(':checked'))" {{ page.all_report }}>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -58,10 +59,20 @@
                                             {% endif %}
 
                                             <div class="cvTargetHeadings">
-                                                <input type="checkbox" class="chkreport_flag" id="report_flag{{ item.cv_item_id }}"name="report_flag{{ item.cv_item_id }}"onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ item.cv_item_id }},'report_flag',$(this).is(':checked'))"{{ item.report_flag }}>
+                                                
                                                 <input type="checkbox" class="chkweb_show" id="web_show{{ item.cv_item_id }}"name="web_show{{ item.cv_item_id }}"onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ item.cv_item_id }},'web_show',$(this).is(':checked'))"{{ item.web_show }}>
                                                 <input type="checkbox" class="chkmycv1" id="my1{{ item.cv_item_id }}" name="my1{{ item.cv_item_id }}"onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ item.cv_item_id }},'mycv1',$(this).is(':checked'))"{{ item.mycv1 }}>
-                                                <input type="checkbox" class="chkmycv2" id="my2{{ item.cv_item_id }}" name="my2{{ item.cv_item_id }}"onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ item.cv_item_id }},'mycv2',$(this).is(':checked'))"{{ item.mycv2 }}>
+                                                <input type="checkbox"
+                                                		class="chkmycv2" 
+                                                		id="my2{{ item.cv_item_id }}"
+                                                		name="my2{{ item.cv_item_id }}"
+                                                		onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ item.cv_item_id }},'mycv2',$(this).is(':checked'))"{{ item.mycv2 }}>
+                                               <input type="checkbox" 
+														class="chkreport_flag" 
+														id="report_flag{{ item.cv_item_id }}" 
+														name="report_flag{{ item.cv_item_id }}"
+														onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ item.cv_item_id }},'report_flag',$(this).is(':checked'))"{{ item.report_flag }}> 
+												
                                             </div>
 
                                             <i class="fa fa-sort" style="cursor:  move"></i>

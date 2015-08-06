@@ -160,8 +160,10 @@ function GenerateEditForm($cvItemId, $page, $userId, $casHeadingId = false) {
 	    	//$vars['preview']=$item['formatted'];
 	    else {
         	$preview = \MRU\Research\CV::formatitem($item, 'apa', 'screen');
-        	$preview=trim($preview,"<p>");
-        	$preview=trim($preview,"</p>");
+        	
+        	$preview=str_ireplace("<p>","",$preview);
+        	$preview=str_ireplace("</p>", "", $preview);
+        	
 			$vars['preview'] = $preview;
 		}
         $vars['relatedto'] = $item['report_flag'] == 1 ? 'block' : 'none';
@@ -608,6 +610,8 @@ function SaveForm($cvItemId, $userId) {
         if ($db->Execute($sql) == false) {
             $statusMesssage .= 'Sorry, an error occurred (flag set failed).';
         } else {
+	        //Not needed anymore, but left for reference
+/*
             $statusMessage .= " (CAQC:";
             if ($flags->isBooksAuthored()) {
                 $statusMessage .= " Book Authored/Co-authored;";
@@ -653,6 +657,7 @@ function SaveForm($cvItemId, $userId) {
                 $statusMessage .= " Scholarly Service;";
             }
             $statusMessage .= ")";
+*/
         }
     }
 
@@ -739,6 +744,7 @@ function PopulateList($userId, $casHeadingId, $vars) {
     $allWebShow = true;
     $allMyCV1Show = true;
     $allMyCV2Show = true;
+    //$allMyCV3Show = true;
     $cvData = array();
     $isOddRow = true;
     $previousItemId = null;
@@ -788,6 +794,7 @@ function PopulateList($userId, $casHeadingId, $vars) {
             $cvData[$sectionIndex]['items'][$sectionItemIndex]['web_show'] = ($item['web_show']) ? ' CHECKED' : '';
             $cvData[$sectionIndex]['items'][$sectionItemIndex]['mycv1'] = ($item['mycv1']) ? ' CHECKED' : '';
             $cvData[$sectionIndex]['items'][$sectionItemIndex]['mycv2'] = ($item['mycv2']) ? ' CHECKED' : '';
+           // $cvData[$sectionIndex]['items'][$sectionItemIndex]['mycv3'] = ($item['mycv3']) ? ' CHECKED' : '';
             if ($allReportShow) {
                 $allReportShow = ($item['report_flag']) ? TRUE : FALSE;
             }
@@ -803,18 +810,26 @@ function PopulateList($userId, $casHeadingId, $vars) {
             if ($allMyCV2Show) {
                 $allMyCV2Show = ($item['mycv2']) ? TRUE : FALSE;
             }
+/*
+            if ($allMyCV3Show) {
+                $allMyCV3Show = ($item['report_flag']) ? TRUE : FALSE;
+            }
+*/
 
             $cvData[$sectionIndex]['items'][$sectionItemIndex]['web_show'] = ($item['web_show']) ? ' CHECKED' : '';
             $cvData[$sectionIndex]['items'][$sectionItemIndex]['mycv1'] = ($item['mycv1']) ? ' CHECKED' : '';
             $cvData[$sectionIndex]['items'][$sectionItemIndex]['mycv2'] = ($item['mycv2']) ? ' CHECKED' : '';
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]['report_flag'] = ($item['report_flag']) ? ' CHECKED' : '';
 
             // set up the reaining fields for display in the template
             $title = \MRU\Research\CV::formatitem($item, 'apa', 'screen');
             if (!$title) {
                 $title = "No title has been generated for this item yet.";
             }
-            $title=trim($title,"<p>");
-            $title=trim($title,"<\p>");
+           
+            $title=str_ireplace("<p>","",$title);
+        	$title=str_ireplace("</p>", "", $title);
+            
 
             $cvData[$sectionIndex]['items'][$sectionItemIndex]["title"] = $title;
             $cvData[$sectionIndex]['items'][$sectionItemIndex]["rank"] = $item['rank'];
@@ -832,6 +847,14 @@ function PopulateList($userId, $casHeadingId, $vars) {
             $vars['header']['status_messages'][] = 'A query error occured and we were not able to display the results.  Please try again later.';
         }
     }
+    
+     if ($showAll) {
+        // 0 if all activities are displayed
+        $vars["page"]["cas_heading_id"] = 0;
+    }
+    //Something is weird - do override
+    //if(!isset($vars["page"]["cas_heading_id"])) $vars["page"]["cas_heading_id"]=0;
+    //echo("HEading ID IS" . $vars["page"]["cas_heading_id"]);
 
     if ($allWebShow) {
         $vars['page']['allweb_show'] = "checked";
@@ -844,11 +867,11 @@ function PopulateList($userId, $casHeadingId, $vars) {
     if ($allMyCV2Show) {
         $vars['page']['allmycv2'] = "checked";
     }
-
-    if ($showAll) {
-        // 0 if all activities are displayed
-        $vars["page"]["cas_heading_id"] = 0;
+    if ($allReportShow) {
+        $vars['page']['allmycv3'] = "checked";
     }
+
+    
 
     $vars["cv_item_list"] = $cvData;
     return $vars;

@@ -102,13 +102,15 @@ switch ($mrAction) {
         }
 
         $vars = PopulateList($userId, $casHeadingId, $vars);
+        
 
         $categories = null;
         if ($casHeadingId) {
             $categories = $db->getAll("SELECT type_name from `cas_types` WHERE `cas_heading_id`='$casHeadingId' ORDER BY `order`");
+            $vars['page']['categories'] = $categories;
+			$vars['page']['cas_heading_id'] = $casHeadingId;
         }
-        $vars['page']['categories'] = $categories;
-        $vars['page']['cas_heading_id'] = $casHeadingId;
+        
 
         $templateName = 'cv_items_generic';
         break;

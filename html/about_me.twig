@@ -1,7 +1,7 @@
 {% extends "layout.twig" %}
 
 {% block content %}
-    <form name="profile_form" id="cv_item_form" action="aboutme.php" method="post" class='edit'>
+    <form name="profile_form" id="cv_item_form" action="aboutme.php" method="post" class='edit' enctype="multipart/form-data">
         <div class='padder'>
 
             <div class="controls">
@@ -240,6 +240,29 @@
                 <h3>Descriptions</h3>
                 <div class="aboutme_section">
                    <table style="border:none;width:800px">
+                   		<tr>
+                   			<td>
+                   				<span class='enfasis'>My Picture</span><br/>
+                   			</td>
+                   		</tr>
+                   		<tr>
+                   			<td>
+                   			    &nbsp;&nbsp;&nbsp;&nbsp;<img height='139' width='180'  src='{{ profile.image }}' /><br/>
+                   			    
+                   			   
+                   			</td>
+                   			<td>
+                   			Upload a new profile picture: 
+                   			<input 	type='file' 
+                   					size='40' 
+				   					onClick="document.profile_form.savechanges.disabled=false; document.profile_form.savechanges2.disabled=false"
+				   					name="mypic"
+				   					id="mypic"
+				   					title="my picture"
+                             /><br/>
+                   			<i><span style='font-size:11px; line-height:13px;'>Please upload a high-resolution image (4:3 width:height). After uploading you'll see a 'quick' version on the left. We'll redo it manually later to make it look the best it can.</span></i>
+                   			</td>
+                   		</tr>
                    		<tr>
                    			<td>
                    				

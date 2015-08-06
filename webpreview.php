@@ -21,10 +21,7 @@ mergePageVariables($vars,viewResearcher($userId));
 
 //$vars=viewResearcher($userId);
 
-	echo('<pre>');
-	print_r($person);
-		print_r($vars);
-		echo('</pre>');
+
 
 echo $twig->render('webpreview.twig', $vars);
 

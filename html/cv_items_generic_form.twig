@@ -66,8 +66,8 @@
             </div>
 #}
 			<div class="formrow" style="margin-bottom: 20px; display:visible">
-				
 				<label for="formatted" style="text-align:top;">Formatted Item</label><br>
+				
 				<div class="wmd-panel">
 			 		<div id="wmd-button-bar"></div>
 			 		<textarea class="wmd-input" id="wmd-input" name="formatted" cols="80" rows="5">{{details_formatted}}</textarea>
@@ -83,7 +83,8 @@
 {#                 <input type="checkbox" class="chkreport_flag" title="Show this item in my current year annual report." id="report_flag{{ cv_item_id }}" name="report_flag{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'report_flag',$(this).is(':checked'));ToggleRelatedTo();"{{ report_flag }}>Annual Report #}
                 <input type="checkbox" class="chkweb_show" title="Display this item in my on-line cv/profile. You can activate this profile by logging in to the research website and setting a checkbox in your Profile page. Contact the ORS for help." id="web_show{{ cv_item_id }}" name="web_show{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'web_show',$(this).is(':checked'))"{{ web_show }}>Web Profile
                 <input type="checkbox" class="chkmycv1" title="Display this item in custom CV #1. This CV may be printed using the Review/Print link on the left." id="my1{{ cv_item_id }}" name="my1{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'mycv1',$(this).is(':checked'))"{{ mycv1 }}>My CV1
-                <input type="checkbox" class="chkmycv2" title="Display this item in quality council report. This CV may be printed using the Review/Print link on the left." id="my2{{ cv_item_id }}" name="my2{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'mycv2',$(this).is(':checked'))"{{ mycv2 }}>My CV2
+                <input type="checkbox" class="chkmycv2" title="Display this item in custom CV #2. This CV may be printed using the Review/Print link on the left." id="my2{{ cv_item_id }}" name="my2{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'mycv2',$(this).is(':checked'))"{{ mycv2 }}>My CV2
+                <input type="checkbox" class="chkmycv3" title="Display this item in custom CV #3. This CV may be printed using the Review/Print link on the left." id="report_flag{{ cv_item_id }}" name="report_flag{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'report_flag',$(this).is(':checked'))"{{ report_flag }}>My CV3
             </div>
 		</div>
 		<br><br>	 	
@@ -241,13 +242,7 @@
         }
     }
 
-    // If the user has "Annual Report" checked, but no "Activity related to my" checked, flash "Activity related to my"
-    var checkedShowOnAnnualReport = $('input.chkreport_flag:checked').length > 0;
-    var checkedActivityRelatedTo = $('.related-to-my').find('input:checked').length > 0;
-    if (checkedShowOnAnnualReport && !checkedActivityRelatedTo) {
-        ToggleRelatedTo();
-        ToggleRelatedTo();
-    }
+    
 </script>
 
 <script type="text/javascript">
@@ -260,7 +255,7 @@
                         return "<blockquote>" + rbg(inner) + "</blockquote>\n";
                     });
                 });
-                var help = function () { alert("Do you need help?"); }
+                var help = function () { alert("This formatter uses Markdown. Markdown is a lightweight markup language with plain text formatting syntax designed so that it can be converted to HTML and many other formats and easily stored in a database. \n**Using anything other than Bold or Italics in this CV context will result in messy formatting**\nFor more information see https://en.wikipedia.org/wiki/Markdown"); }
                 var options = {
                     helpButton: { handler: help },
                     strings: { quoteexample: "whatever you're quoting, put it right here" }

@@ -8,3 +8,5 @@ site:
     annualreports_url: http://annualreports.mtroyal.ca
     researchweb_url: http://research.mtroyal.ca
     template_debug: false
+    picture_path: /Users/trevor/Documents/Sites/FAIR/documents/pictures/
+    picture_url: /documents/pictures/

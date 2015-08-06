@@ -121,7 +121,7 @@
                     <div class='cv_title'>Projects</div>
                         <ul>                                             
 							{% for project in projects_list %}							                                         
-                            	<li><a href="research.php?action=view&type=project&pid={{ project.project_id }}" title="{{ project.project_name }}">{{ project.project_name }}</a></li>    
+                            	<li><a href="viewproject.php?pid={{ project.project_id }}" title="{{ project.project_name }}">{{ project.project_name }}</a></li>    
                             {% endfor %}                                                           
 						</ul>
                 {% endif %}

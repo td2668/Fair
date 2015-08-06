@@ -1,0 +1,65 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+	<form name="research_list_form" id="cv_item_form" action="my_projects_home.php"
+                    method="post" title="My Projects" class='edit'>
+		<div class='padder'>
+			<div class="controls">
+				
+				<a title="Add a Project" class="button" name="addproject" id="addproject" target="_blank" onClick="window.location='my_projects.php?subsection=edititem&addnew_project'"> 
+                    <span class="ui-icon "></span> Add a Project</a>
+			</div>
+
+
+			<div class='aboutme'>
+				<div  class='aboutme_section'>
+					 <h3 style="padding-top:15px;"><span class='name'>Projects</span></h3>
+
+
+					<span class="enfasis">Here you may add or modify project descriptions that can be linked to your web profile</span>
+                        <br /><br />
+						<input type="hidden" name="action" value="update_project_list"/>
+						
+						<table cellpadding='0' cellspacing='0' border='0' style="border:none;width:700px; font-size:13px;">
+							<tr><td><b>Title</b></td><td><b>Synopsis</b></td><td><b>Modified</b></td></tr>
+							
+								{% for project in projects %}
+									
+									{% if project.type == 'evenrow' %}
+										<tr class="evenrow">
+											<td width='160' ><div class='list'><a href="my_projects.php?subsection=edititem&project_id={{ project.project_id }}" >{{ project.name }}</a></div></td>
+								   			<td><div class='list'>{{ project.synopsis }}</div></td>
+								   			<td nowrap><div class="list">{{ project.modified }}</div></td>														
+								   		</tr>
+									{% elseif project.type == 'oddrow' %}
+										<tr class="oddrow">
+										
+											<td width='160' ><div class='list'><a href="my_projects.php?subsection=edititem&project_id={{ project.project_id }}" >{{ project.name }}</a></div></td>
+								   			<td><div class='list'>{{ project.synopsis }}</div></td>
+								   			<td nowrap><div class="list">{{ project.modified }}</div></td>														
+								   		</tr>
+									{% else %}
+										<tr class="evenrow"><td colspan='3'>No Projects Found</td></tr>
+									{% endif %}
+		                           	
+		                           		
+									
+								{% endfor %}
+							
+					
+                  
+				</table>
+			
+
+			</div>
+			 <div style="clear:both; margin-left: 350px">
+                    <br/>
+                    <a href="#" class="button" name="savechanges" id="bt-save2" onclick="document.forms['profile_form'].submit();">
+                        <span class="ui-icon ui-icon-disk"></span> Save Changes
+                    </a>
+                </div>
+		</div>
+		</div>
+	</form>
+{% endblock %}
+

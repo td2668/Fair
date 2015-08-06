@@ -41,7 +41,8 @@ if ($config['app']['debug']) {
 }
 ini_set('display_errors', 1);
 //error_reporting(E_ALL & ~E_NOTICE & -E_DEPRECATED);
-error_reporting(E_ERROR | E_WARNING | E_PARSE );
+//error_reporting(E_ERROR | E_WARNING | E_PARSE );
+ error_reporting(E_ALL);
 
 // Setup the include paths
 set_include_path(implode(PATH_SEPARATOR, array(
@@ -120,8 +121,8 @@ define ('PDF_AUTHOR', 'MRU TCPDF');
 define ('PDF_CREATOR', 'MRU TCPDF');
 define ('PDF_FONT_NAME_MAIN', 'coprg');
 define ('PDF_FONT_SIZE_MAIN', 12);
-define ('PDF_HEADER_LOGO', 'mount-royal-logo-227x80.png');
-define ('PDF_HEADER_LOGO_WIDTH', 30);
+define ('PDF_HEADER_LOGO', 'viu_logo_1.png');
+define ('PDF_HEADER_LOGO_WIDTH', 40);
 define ('PDF_HEADER_STRING', "");
 define ('PDF_HEADER_TITLE', '');
 define ('PDF_IMAGE_SCALE_RATIO', 4);

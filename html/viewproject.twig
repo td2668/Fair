@@ -1,0 +1,75 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+	<div  id="cv_item_form" class='edit'>
+        <div class='padderwide'>
+			<div class="research_main">
+				<div id="viewresearcher">
+					{% if not project.project_id %}
+							<b>Project not found.</b>
+					{% else %}   
+
+
+					<div id="viewproject">
+						{% if not project.img_url %}
+						<div class="withoutimage">
+                            <div class="projecttext">
+                                <h2>{{ project.name }}</h2>
+                                <strong>{{ project.name_long }}</strong><br />
+                            </div>
+                            <div class="projecttext">              
+                                {{ project.description }}<br /><br />
+                            </div>
+                        
+                            <div style="padding-left:20px;padding-top:15px;">
+                                {% if project.participants %} 
+                                    <b>Participants:</b><br />
+                                    {{project.participants | raw }} 
+                                    <br /><br />
+                                {% endif %}
+                                
+                                {% if project.keywords %}
+                                    <b>Keywords:</b><br />
+                                    {{project.keywords | raw }}
+                                 {% endif %}
+                            </div>
+                                
+                        </div>
+						
+						{% else %}
+
+						<div class="withimage">
+                            <div class="projecttext">
+                                <h2>{{project.name}}</h2>
+                                <strong>{{ project.long_name }}</strong><br />
+                            </div>
+                            <div class="projectimagebox">
+                                <img title="{{ project.img_caption }}" src="{{ project.img_url }}"  /><br />
+                                    <div style="padding-left:10px;padding-top:15px;">
+                                        {% if project.participants %} 
+										<b>Partners:</b><br />
+										{{project.participants | raw }} 
+                                    	<br /><br />
+										{% endif %}
+                                
+										{% if project.keywords %}
+                                   		 <b>Keywords:</b><br />
+								   		 {{project.keywords | raw }}
+								   		 {% endif %}                                
+								   	</div>
+							</div>        
+                             <div class="projecttext">
+                        
+                                {{ project.description }}<br /><br />
+                             </div>       
+                                    
+                        </div>
+						{% endif %}
+					{% endif %}
+
+					</div>
+				</div>
+			</div>
+        </div>
+
+	{% endblock %}

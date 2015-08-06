@@ -40,8 +40,9 @@ class CV {
             //require_once('parsedown/Parsedown.php');
             $Parsedown = new Parsedown();			
 			$result= $Parsedown->text($cv_item['formatted']); 
-			$result=trim($result,"<p>");
-        	$result=trim($result,"</p>");
+			$result=str_ireplace("<p>", '',$result);
+			$result=str_ireplace("</p>", '',$result);
+
             
         }
         else {

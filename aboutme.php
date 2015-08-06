@@ -1,5 +1,6 @@
 <?php
 require_once('includes/config.inc.php');
+include_once('includes/image-functions.php');
 
 global $session;
 if (!$session->has('user')) {
@@ -15,7 +16,7 @@ mergePageVariables($vars, getAboutMeVars());
 echo $twig->render('about_me.twig', $vars);
 
 function processAboutMeFormSubmit() {
-    global $db, $session;
+    global $db, $session, $config;
 
     $userId = $session->get('user')->get('id');
 
@@ -37,6 +38,7 @@ function processAboutMeFormSubmit() {
         'keywords' => 'keywords',
         'profile_ext' => 'full profile statement (will be used when viewing your detailed profile)',
         'profile_short' => 'short profile statement (will be used in the listings of people)',
+        'image' => 'my picture',
     );
     $arrFields = array(
         "user_id" => $userId,
@@ -70,9 +72,7 @@ function processAboutMeFormSubmit() {
     }
     $db->Replace("users", array('user_id' => $userId, 'mail_deadlines' => $mail_deadlines), "user_id", true);
 
-    if ($_POST['status'] && ($_POST['status'] == "TN" || $_POST['status'] == "T" || $_POST['status'] == "TC" || $_POST['status'] == "CT")) {
-        $db->Replace("users_ext", array('user_id' => $userId, 'emp_status' => $_POST['status']), "user_id", true);
-    }
+    
 
     if (isset($_POST['work_pattern'])) {
         if ($_POST['work_pattern'] == "0") {
@@ -83,6 +83,64 @@ function processAboutMeFormSubmit() {
 
         $db->Replace("users_ext", array('user_id' => $userId, 'tss' => $workpattern), "user_id", true);
     }
+    
+	if(is_uploaded_file($_FILES['mypic']['tmp_name'])) {
+        //echo("Got here");
+
+        $ext = explode(".", $_FILES['mypic']['name']);
+        $file_name_noext = "picture".time();
+        $file_name_full = $file_name_noext."_full.".$ext[1];
+        $file_name = $file_name_noext.".".$ext[1];
+        //echo($configInfo['picture_path'].$file_name);
+        copy($_FILES['mypic']['tmp_name'], $config['site']['picture_path'].$file_name_full);
+        copy($_FILES['mypic']['tmp_name'], $config['site']['picture_path'].$file_name);
+        unlink($_FILES['mypic']['tmp_name']);
+        
+        //thumbnail
+        resizeImage($config['site']['picture_path'].$file_name, $config['site']['picture_path']."thumb_".$file_name);
+    
+        //now resize the image if neccessary. Need to check with a variety of images
+        resizeImage($config['site']['picture_path'].$file_name, $config['site']['picture_path'].$file_name, 140);
+        shadowImage($config['site']['picture_path'].$file_name, $config['site']['picture_path'].$file_name, 6, 87);
+        
+        //delete existing
+        $sql="SELECT * FROM pictures_associated WHERE table_name='users' AND object_id=$userId";
+        $pix=$db->GetAll($sql);
+        if(count($pix > 0)) foreach($pix as $pic){
+	        $sql="DELETE FROM pictures_associated WHERE associated_id=$pic[associated_id]";
+	        if($db->Execute($sql)==false) {
+            	throwError("Error","<h1>Error</h1>Couldn't delete from the assoc database.<br /><br />$sql<br /><br />" . $db->ErrorMsg() . "<br /><br />");
+				die;
+			}
+			$sql="DELETE FROM pictures WHERE picture_id=$pic[picture_id]";
+			if($db->Execute($sql)==false) {
+            	throwError("Error","<h1>Error</h1>Couldn't delete from the picture database.<br /><br />$sql<br /><br />" . $db->ErrorMsg() . "<br /><br />");
+				die;
+			}
+        }
+        
+        $sql="INSERT INTO pictures
+             (caption,file_name,feature)
+             VALUES('".mysql_real_escape_string($_POST['first_name'].' '.$_POST['last_name'])."','$file_name',0)";
+        if($db->Execute($sql)==false) {
+            throwError("Error","<h1>Error</h1>Couldn't update the picture database.<br /><br />$sql<br /><br />" . $db->ErrorMsg() . "<br /><br />");
+            die;
+        }
+        $picture_id=mysql_insert_id();
+        
+        //And save the relate
+        
+        $sql="INSERT INTO pictures_associated
+              (picture_id,object_id,table_name)
+              VALUES($picture_id,$userId,'users')";
+        if($db->Execute($sql)==false) {
+            throwError("Error","<h1>Error</h1>Couldn't update the picture-relate database.<br /><br />$sql<br /><br />" . $db->ErrorMsg() . "<br /><br />");
+            die;
+        }
+
+        
+   
+    }//is upload image
 
     $arrFields = array(
         "user_id" => $userId,
@@ -259,6 +317,8 @@ function getAboutMeVars() {
     $vars['profile']['work_pattern'] = $workPatternList;
 
     $vars['site']['researchweb_url'] = $config['site']['researchweb_url'];
+    
+    if(!isset($vars['profile']['image'])) $vars['profile']['image']=$config['site']['picture_url'].'blank_person.jpg';
 
     return $vars;
 }

@@ -180,6 +180,15 @@ function getPageVariables($pageName) {
         case 'stats':
             $pageTitle = 'Statistics';
             break;
+        case 'my_projects_home':
+        	$pageTitle = 'My Projects';
+        	break;
+        case 'my_projects_edit':
+        	$pageTitle = 'My Projects-Edit';
+        	break;
+        case 'viewproject':
+        	$pageTitle="View Project";
+        	break;
 
         default:
             $pageTitle = "VIU Academic Information DB";
@@ -193,11 +202,13 @@ function getPageVariables($pageName) {
         "components/ajax-tooltip/ajax-tooltip.css",
         "components/fancybox/jquery.fancybox-1.3.4.css",
         "components/jquery-autocomplete/jquery.autocomplete.css",
-        "css/style.css"
+        "css/style.css",
+        "includes/datechooser.css"
     );
     foreach ($cssLinks as $i => $url) {
         $cssLinks[$i] = getCacheBustedUrl($url);
     }
+    
 
     $jsLinks = array(
         "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js",
@@ -208,7 +219,9 @@ function getPageVariables($pageName) {
         "components/sack/sack.js",
         "components/jquery-autocomplete/jquery.autocomplete.js",
         "components/phpjs/functions/datetime/strtotime.js",
-        "js/javascript.js"
+        "js/javascript.js",
+        "includes/datechooser.js",
+        "includes/date-functions.js"
     );
     foreach ($jsLinks as $i => $url) {
         $jsLinks[$i] = getCacheBustedUrl($url);
@@ -231,7 +244,8 @@ function getPageVariables($pageName) {
             'username' => ($session->has('user') ? $session->get('user')->get('full_name') : null),
             'status_messages' => array(),
             'favorites' => ($isLoggedIn ? LoadCommonTypes($session->get('user')->get('id')) : null),
-            'css_links' => $cssLinks
+            'css_links' => $cssLinks,
+            'pageName' => $pageName
         ),
         'sidebar' => array(
             array(
@@ -245,9 +259,14 @@ function getPageVariables($pageName) {
                 'selected' => in_array($pageName, array('cv_items_generic', 'cv_items_generic_form')) || isset($_GET['cas_heading_id']) && $_GET['cas_heading_id'] != ''
             ),
             array(
+                'url' => 'my_projects.php',
+                'name' => 'My Projects',
+                'selected' => ($pageName == 'my_projects_home'),
+            ),
+            array(
                 'url' => 'content.php?page=review_print',
                 'name' => 'Review | Print',
-                'selected' => in_array($pageName, array('review_print', 'webpreview', 'mycv1', 'mycv2')),
+                'selected' => in_array($pageName, array('review_print', 'webpreview', 'mycv1', 'mycv2','mycv3')),
                 'submenu' => array(
                     array(
                         'url' => 'webpreview.php',
@@ -384,7 +403,7 @@ function CleanFilename($filename) {
 *   @return     array       all the user data or empty array if not found
 */
 function GetPersonData($userId) {
-    global $db;
+    global $db,$config;
     if ($userId > 0) {
         $sql = "
             SELECT d1.division_id,
@@ -407,6 +426,7 @@ function GetPersonData($userId) {
                 p1.profile_short,
                 p1.secondary_title,
                 p1.title,
+                p1.pic_status,
                 p2.short_profile as ar_profile,
                 ue.cv_optout as optout,
                 ue.emp_status AS status,
@@ -468,6 +488,12 @@ function GetPersonData($userId) {
         $personData['chair_flag'] = true;
         $personData['chair_department_id'] = '0';
     }
+    
+    $sql="SELECT * FROM pictures_associated as pa LEFT JOIN pictures as pic on pa.picture_id=pic.picture_id WHERE pa.table_name='users' AND pa.object_id= {$userId}";
+    $pic = $db->getRow($sql);
+    if (sizeof($pic) >0) {
+	    $personData['image']=$config['site']['picture_url'].$pic['file_name'];
+	}
 
     return $personData;
 }

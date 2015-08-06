@@ -1,0 +1,97 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<form name="project_item_form" id="cv_item_form" action="my_projects.php"
+                    method="post" title="My Projects" class='edit'  enctype="multipart/form-data">
+		<div class='padder'>
+			<div class="controls">
+				
+				<a title="Save Changes" class="button" name="save_changes" id="save_changes" target="_blank" onClick="document.forms['project_item_form'].submit();"><span class="ui-icon "></span> Save Changes</a>
+				<br /><br />
+				<a title="Delete Project" class="button" name="delete_project" id="delete_project" target="_blank" onClick="if(confirm('Are you sure you want to delete this project?')) window.location='my_projects.php?subsection=edititem&action=delete_project&delete_project_id={{item.project_id}}';"><span class="ui-icon"></span> Delete Project</a>
+			
+			</div>
+			
+
+			
+		<div class="about_me">
+			
+				<input type="hidden" name="action" value="update_project">
+				<input type="hidden" name="subsection" value="edititem">
+				<input type="hidden" name="project_id" value="{{item.project_id}}">
+				<input type="hidden" name="update_project_id" value="{{item.project_id}}">
+                <input type='hidden' name='delete_picture_id' value=''>
+
+				<h2>{{item.name}}</h2>
+				<p class='enfasis'>Last Modified: {{item.modified}} by {{item.who_modified}}</p>
+                <table>
+                <tr><td>Project Name:</td><td colspan="2"><input type="text" size="75" maxlength="255" name="name" value="{{item.name}}" title="Project Name" /></td></tr>
+                <tr><td><b>Hide Project:</b></td><td colspan="2"><input type="checkbox" name="approved" {{item.approved}} /></td></tr>
+                    <tr>
+                        <td valign="top">Local Collaborators:</td>
+                        <td><select style='font-size: 11px;' name='user_options[]' multiple="multiple" size="5">
+                            <option value=0>--NONE--</option>
+                            {{ user_options | raw}}</select></td>
+                        <td valign="top">
+                        <i>Hold 'Control' and click<br />
+                   for multiple people. They<br />
+                   will be linked and also be<br />
+                   able to edit.</i></td></tr>
+                
+                <tr><td valign="top">Synopsis:</td><td colspan="2"><textarea name="synopsis" id="synopsis" rows="15" cols="80"   title="Synopsis - Should not be longer than this box">{{item.synopsis}}</textarea></td></tr>
+                <tr><td valign="top">Full Story:</td><td colspan="2"><textarea name="description" id="description" rows="35" cols="80" title="Description" >{{item.description}}</textarea></td></tr>
+                <tr><td>Keywords:</td><td colspan="2"><input type="text" size="75" maxlength="255" name="keywords" value="{{item.keywords}}" title="Comma separated list of phrases for search engines" /></td></tr>
+                <tr><td>Student Project?:</td><td colspan="2"><input type="checkbox" name="studentproj" id="studentproj" {{item.studentproj}}> <i>(i.e. student-led or significant involvement)</i></td></tr>
+                <tr><td>Student Names:</td><td colspan="2"><input type="text" size="75" maxlength="255" name="student_names" value="{{item.student_names}}" title="Comma separated list of students involved" /></td></tr>
+                <tr><td>End Date:</td><td colspan="2"><input type="text" size="16" maxlength="255" name="end_date" id="end_date" value="{{item.end_date}}" title="Estimated date the project will wrap up; used to the list" /> <img src='/images/calendar.gif' title="Click to modify date"  align='absmiddle' onclick='showChooser(this, "end_date", "chooserSpan", 2000, 2020, "Y-m-d", false);'> <i>(for sorting purposes - latest date shows first)</i><div  id='chooserSpan' class='dateChooser select-free' style='z-index: 5;display: none; visibility: hidden; width: 166px;'></div></td></tr>
+                <tr><td>&nbsp;</td></tr>
+
+                   <tr>
+                        <td>Boyer's Categories :</td>
+                        <td colspan="2">
+                            <input type="checkbox" name="boyerDiscovery" value="boyerDiscovery" {{item.boyerDiscovery}} />Discovery
+                            <input type="checkbox" name="boyerIntegration" value="boyerIntegration" {{item.boyerIntegration}}/>Integration
+                            <input type="checkbox" name="boyerApplication" value="boyerApplication" {{item.boyerApplication}}/>Application
+                            <input type="checkbox" name="boyerTeaching" value="boyerTeaching" {{item.boyerTeaching}}/>Teaching
+                            <input type="checkbox" name="boyerService" value="boyerService" {{item.boyerService}}/>Service
+                        </td>
+                    </tr>
+
+                <tr><td colspan='3'><hr><h2>Images</h2>Images can be linked with a project. They only  display one at a time, and rotate randomly.<br /></td></tr>
+                <tr><td>Upload an Image:</td><td colspan="2"><input type="file" name="uploadimage" size="60" /></td></tr>
+                <tr><td>Image Caption:</td><td colspan="2"><input type="text" name="caption" size="50" maxlength="50"></td></tr>
+                <tr><td></td></tr>
+                
+                {% for image in image_list %}
+                    <tr><td colspan='3' align="center" >
+                                    <table cellpadding="5"><tr><td style="background-color: #CCC; text-align: center; border: blue solid 1px;">
+                                    <img src="{{image.url}}"><br/>
+                                    
+                                    Caption: <input type="text" size="30" name="caption_{{image.capnum}}" value="{{image.caption}}"> 
+                                    <button type='button' name="save_changes" value="Save Changes" onClick="document.forms['project_item_form'].submit();">Save</button>
+                                    <button onclick="document.forms['project_item_form'].action.value='delete_picture'; document.forms['project_item_form'].delete_picture_id.value='{{image.capnum}}'; document.forms['project_item_form'].submit();">Delete</button><br />  
+                                  
+                                  
+                     </td></tr></table>
+                    </td></tr>
+                {% endfor %}
+                </table>
+				
+				<br />
+				<span style="padding-left:300px;">
+                <a title="Save Changes" class="button" name="save_changes" id="save_changes" target="_blank" onClick="document.forms['project_item_form'].submit();"><span class="ui-icon "></span> Save Changes</a>
+				</span>
+            </form>
+			
+		</div>
+
+	</div>
+	<div style="clear:both"></div>
+
+	<patTemplate:tmpl src="footer.html" />
+	
+</patTemplate:tmpl>
+
+		</div>
+	</form>
+{% endblock %}
