@@ -125,7 +125,59 @@ function viewResearcher( $rid ) {
 		
 
        //////////////////////////////// //Process all CV Items///////////////////////////////////////
+/*
+	   The order of display depends upon which preference the user has selected.
+	   So we build an array of sections and items and loop through within the template
+	   Array will be structured
+	   
+	   main title (cas_menu_heading)
+	   		subtitle (cas_headings) - 
+	   			item
+	   main titles: 
+	   
+	   
+	   
+	*/   
+	
+	//Based on user prefs, load the set of headings that fits
+	//
+		if($researcher['weborder']==0 || $researcher['weborder']==1) $order='order';
+		else $order='order'.($researcher['weborder']);
+		
+		
+		$sql="SELECT * FROM cas_menu_headings as cmh WHERE cmh.$order > 0 ORDER BY cmh.$order";
+		$headings=$db->GetAll($sql);
+		$cv=array();
+		$section=array();
+		foreach($headings as $heading){
+			$section['heading']=$heading['name'];
+			$section['items']=array();
+			$sql="	SELECT cci.*, 
+					CASE
+						WHEN cci.n09 > cci.n18 THEN cci.n09
+						WHEN cci.n18 > cci.n09 THEN cci.n18
+						ELSE cci.n09
+					END as maxdate
+				FROM cas_cv_items as cci
+                LEFT JOIN cas_types as ct ON cci.cas_type_id=ct.cas_type_id
+                LEFT JOIN cas_headings as ch ON ch.cas_heading_id=ct.cas_heading_id                
+                WHERE cci.user_id=".intval($rid)."
+                AND
+                ch.cas_menu_heading_id=$heading[id]
+                AND cci.web_show = 1
+                order by maxdate desc";
+            $items=$db->GetAll($sql);
 
+            foreach($items as $item){
+
+				$result=\MRU\Research\CV::formatitem($item,'apa','list');
+				if($item['details_teaching'] != '') $result.="<br><i>".$item['details_teaching']."</i>";
+				$section['items'][]=buildItem($item);
+				
+			}
+			$cv[]=$section;
+		}
+		$vars['cv']=$cv;
 
         //Degrees
         $degrees="";
@@ -139,7 +191,7 @@ function viewResearcher( $rid ) {
         if(is_array($degrees)){
             $degree_list=array();
             foreach ($degrees as $item){
-                $output="";
+                
                 //$sql="SELECT * from cv_item_types WHERE cv_item_type_id=$item[cv_item_type_id]";
                 //$types=$db->GetAll($sql);
                 //$type=reset($types);
@@ -150,7 +202,10 @@ function viewResearcher( $rid ) {
                         //$degree_list[]= $output;
                     //}
                 //} //if type
-                $degree_list[]=\MRU\Research\CV::formatitem($item,'apa','list');
+                $
+                $result=\MRU\Research\CV::formatitem($item,'apa','list');
+                if($item['details_teaching'] != '') $result.="<br><i>".$item['details_teaching']."</i>";
+                $degree_list[]=buildItem($item);
             } // foreach
             //$tmpl->addVar('educ_list','DEGREES',$degree_list);
             $vars['educ_list']=$degree_list;
@@ -435,9 +490,15 @@ function viewResearcher( $rid ) {
     //else $tmpl=loadPage("research_viewresearcher", 'Research at MRU',"research");
     else $vars['research_list']='No CV Data';
 
-
+	
 		
 	return $vars;
+}
+
+function buildItem($item) {
+	$result=\MRU\Research\CV::formatitem($item,'apa','list');
+    if($item['details_teaching'] != '') $result.="<br><div style='padding-left:16px;'><i>".$item['details_teaching']."</i></div>";
+    return $result;
 }
 
 

@@ -20,9 +20,16 @@
                 <br>
 				<h3><span class='name'>Preferences</span></h3>
 				<div  class='aboutme_section'>
-					 <div style=" width:50%; display:inline-block">
+					<table style="border:none;width:800px">
+					<tr>
+					<td style="width:300px;">
+{# 					 <div style=" width:50%; display:inline-block"> #}
                        <span class='enfasis'>Visibility</span><br/>
-                        <input type="checkbox" name='show_checkbox' onClick="document.forms['profile_form'].submit();" {% if not profile.user_level %}checked{% endif %}/> Show Profile On Web<br/>
+                        <input 	type="checkbox" 
+                        		name='show_checkbox' 
+                        		onClick="document.forms['profile_form'].submit();" 
+                        		{% if not profile.user_level %}checked{% endif %}/>
+                         Show Profile On Web<br/>
                         <input type="hidden" name="action" value="update"><br/>
                     </div>
 
@@ -44,10 +51,30 @@
                                title='Enable or disable the automatic emailing of grant deadline notifications'
                                {% if profile.mail_deadlines %}checked{% endif %} />
                         <label title="Enable or disable the automatic emailing of grant deadline notifications" for="deadlines_checkbox">
-                            Deadline Notifications
-                        </label>
+                            Deadline Notifications</label>
                         <br/>
-                    </div>
+                    
+                    </div> 
+                   </td>
+                   <td style="width:300px;">
+                   <span class='enfasis'>Web Listing</span><br/>
+                   The order of items listed on your web profile:<br />
+                   <input type='radio' name='weborder' value='1' onClick="document.forms['profile_form'].submit();" {% if profile.weborder==1 %}checked{% endif %} title="This selection determines the order in which the items you choose are presented on the web. Categories will not show at all if no items are selected from the 'My Activities' section" for="weborder" /> Teaching-focused<br />
+                   <input type='radio' name='weborder' value='2' onClick="document.forms['profile_form'].submit();" {% if profile.weborder==2 %}checked{% endif %} title="This selection determines the order in which the items you choose are presented on the web. Categories will not show at all if no items are selected from the 'My Activities' section" for="weborder" /> Scholarship-focused<br />
+                   <input type='radio' name='weborder' value='3' onClick="document.forms['profile_form'].submit();" {% if profile.weborder==3 %}checked{% endif %} title="This selection determines the order in which the items you choose are presented on the web. Categories will not show at all if no items are selected from the 'My Activities' section" for="weborder" /> Engagement-focused<br />
+                  <br />
+                   <input type="checkbox"
+                               name='combinepubs'
+                               onClick="document.forms['profile_form'].submit();"
+                               title='Show combined Recent Publications rather than separate'
+                               {% if profile.combinepubs %}checked{% endif %} />
+                        <label title="Show combined Recent Publications rather than separate" for="combine_pubs">
+                            Combine Publications</label>
+                        <br/>
+
+                   </td>
+                   </tr>
+                    </table>
 
 				</div>
 				

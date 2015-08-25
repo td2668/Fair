@@ -1,0 +1,53 @@
+<patTemplate:tmpl name="PAGE">
+<patTemplate:tmpl src="header.html" />
+<tr><td>
+{COUNTER}</td></tr><tr><td>
+<table border="1" cellpadding="3" style="border-collapse: collapse" bordercolor="#FFFFFF" cellspacing="1">
+<patTemplate:tmpl name="chooser" visibility="hidden">
+    <tr><td  bgcolor='#000000'><b><font color='#FFFFFF'>{HEADING_NAME}</font></b></td><td  bgcolor='#000000'><a href='cas_types.php?heading_up&id={CAS_HEADING_ID}'><img src='images/arrow_up_grey.jpg' border='0'/></a></td><td  bgcolor='#000000'><a href='cas_types.php?heading_down&id={CAS_HEADING_ID}'><img src='images/arrow_down_grey.jpg' border='0'/></a></td></tr>
+    
+    {ITEMS}
+</patTemplate:tmpl>
+
+<patTemplate:tmpl name="edit" visibility="hidden">
+    <form name='form1'>
+    <input type="hidden" name="cas_type_id" value="{CAS_TYPE_ID}">
+    
+    <tr>
+        <td colspan="9" class="successhead">Editing: {TYPENAME}</td>
+    </tr>
+    <tr height="10">
+        <td colspan='9' height="14" class="success">{SUCCESS}</td>
+    </tr>
+    <tr>
+      <td colspan="9">&nbsp;</td>
+    </tr>
+    <tr>
+        <td class="listhead"><b style="color:#E1E1E1;font-size:10px">Active</b></td>
+        <td class="listhead">&nbsp;</td>
+        <td class="listhead">&nbsp;</td>
+        <td class="listhead"><b style="color:#E1E1E1;font-size:10px">Name</b></td>
+        <td class="listhead"><b style="color:#E1E1E1;font-size:10px">Required</b></td>
+    <td class="listhead"><b style="color:#E1E1E1;font-size:10px">Order</b></td>
+    <td class="listhead"><b style="color:#E1E1E1;font-size:10px">Choose</b></td>
+    <td class="listhead"><b style="color:#E1E1E1;font-size:10px">User Add</b></td>
+    <td class="listhead"><b style="color:#E1E1E1;font-size:10px">Help Text</b></td>
+    </tr>
+    <patTemplate:tmpl name="fields">
+        <tr ><td class="listbody">{CHECKBOX}</td>
+        <td class="listbody">{FIELDINDEX}</td>
+        <td class="listbody">{TYPE}</td>
+        <td class="listbody">{CONTENT}</td>
+        <td class="listbody">{REQUIRED}</td>
+        <td class="listbody">{ORDER}</td>
+        <td class="listbody">{OPTIONS}</td>
+        <td class="listbody">{LIST_ADD}</td>
+        <td class="listbody">{HELP_TEXT}</td></tr>
+    </patTemplate:tmpl>
+    <tr><td colspan="8" align="center"><button type="submit" name="saveme" value="saveme">Save</button> <button type="button" onCLick="window.location='cas_types.php?section=view';">Back to List</button></td></tr>
+    
+ </form>   
+</patTemplate:tmpl>
+</table>
+</td></tr>
+</patTemplate:tmpl>

@@ -25,7 +25,6 @@ function processAboutMeFormSubmit() {
         'first_name' => 'First name',
         'last_name' => 'Last name',
         'department_id' => 'Last name',
-        'department2_id' => 'Last name',
     );
     $validProfileFields = array(
         'email' => 'email',
@@ -38,7 +37,8 @@ function processAboutMeFormSubmit() {
         'keywords' => 'keywords',
         'profile_ext' => 'full profile statement (will be used when viewing your detailed profile)',
         'profile_short' => 'short profile statement (will be used in the listings of people)',
-        'image' => 'my picture',
+        'weborder' => 'order of item display on web profile',
+        'combinepubs' => 'flag to group recent publications',
     );
     $arrFields = array(
         "user_id" => $userId,
@@ -72,7 +72,7 @@ function processAboutMeFormSubmit() {
     }
     $db->Replace("users", array('user_id' => $userId, 'mail_deadlines' => $mail_deadlines), "user_id", true);
 
-    
+ 
 
     if (isset($_POST['work_pattern'])) {
         if ($_POST['work_pattern'] == "0") {
@@ -208,9 +208,17 @@ function processAboutMeFormSubmit() {
         '-',
         '--',
     );
+    
     $arrFields['profile_ext'] = stripslashes(preg_replace($search, $replace, $arrFields['profile_ext']));
     $arrFields['profile_short'] = stripslashes(preg_replace($search, $replace, $arrFields['profile_short']));
+    if (isset($arrFields['combinepubs']) && $arrFields['combinepubs'] == "on") {
+        $arrFields['combinepubs'] = 1;
+    } else {
+        $arrFields['combinepubs'] = 0;
+    }
+        
     $db->Replace("profiles", $arrFields, "user_id", true);
+    
 
     /* save AR profile separately */
     // first, check that the ar_profile exists.  If not, create it.

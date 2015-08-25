@@ -189,6 +189,9 @@ function getPageVariables($pageName) {
         case 'viewproject':
         	$pageTitle="View Project";
         	break;
+        case 'webprefs':
+        	$pageTitle="Web Preferences";
+        	break;
 
         default:
             $pageTitle = "VIU Academic Information DB";
@@ -266,8 +269,15 @@ function getPageVariables($pageName) {
             array(
                 'url' => 'content.php?page=review_print',
                 'name' => 'Review | Print',
-                'selected' => in_array($pageName, array('review_print', 'webpreview', 'mycv1', 'mycv2','mycv3')),
+                'selected' => in_array($pageName, array('review_print', 'webprefs', 'webpreview', 'mycv1', 'mycv2','mycv3')),
                 'submenu' => array(
+/*
+                    array(
+                        'url' => 'webprefs.php',
+                        'name' => 'Web Preferences',
+                        'selected' => ($pageName == 'webprefs'),
+                    ),
+*/
                     array(
                         'url' => 'webpreview.php',
                         'name' => 'Web List',
@@ -281,6 +291,10 @@ function getPageVariables($pageName) {
                         'url' => 'cv_review_print.php?generate=mycv2',
                         'name' => 'My CV 2',
 //                         'selected' => ($pageName == 'caqccv'),
+                    ),
+                    array(
+                        'url' => 'cv_review_print.php?generate=mycv2&style=caqc',
+                        'name' => 'My CV 2 - Alt Style',
                     ),
                     array(
                         'url' => 'cv_review_print.php?generate=mycv3',
@@ -427,6 +441,8 @@ function GetPersonData($userId) {
                 p1.secondary_title,
                 p1.title,
                 p1.pic_status,
+                p1.weborder,
+                p1.combinepubs,
                 p2.short_profile as ar_profile,
                 ue.cv_optout as optout,
                 ue.emp_status AS status,
@@ -561,3 +577,7 @@ function getUsers() {
     $allusers = $db->getAll($sql);
     return $allusers;
 }
+
+
+
+

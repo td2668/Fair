@@ -81,16 +81,20 @@
 		 <div  style="float:left; padding-top:10px;">
                 <label> Show on my: </label>
 {#                 <input type="checkbox" class="chkreport_flag" title="Show this item in my current year annual report." id="report_flag{{ cv_item_id }}" name="report_flag{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'report_flag',$(this).is(':checked'));ToggleRelatedTo();"{{ report_flag }}>Annual Report #}
-                <input type="checkbox" class="chkweb_show" title="Display this item in my on-line cv/profile. You can activate this profile by logging in to the research website and setting a checkbox in your Profile page. Contact the ORS for help." id="web_show{{ cv_item_id }}" name="web_show{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'web_show',$(this).is(':checked'))"{{ web_show }}>Web Profile
+                <input type="checkbox" class="chkweb_show" title="Display this item in my on-line cv/profile. You can activate this profile on the About Me page." id="web_show{{ cv_item_id }}" name="web_show{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'web_show',$(this).is(':checked'))"{{ web_show }}>Web Profile
                 <input type="checkbox" class="chkmycv1" title="Display this item in custom CV #1. This CV may be printed using the Review/Print link on the left." id="my1{{ cv_item_id }}" name="my1{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'mycv1',$(this).is(':checked'))"{{ mycv1 }}>My CV1
                 <input type="checkbox" class="chkmycv2" title="Display this item in custom CV #2. This CV may be printed using the Review/Print link on the left." id="my2{{ cv_item_id }}" name="my2{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'mycv2',$(this).is(':checked'))"{{ mycv2 }}>My CV2
                 <input type="checkbox" class="chkmycv3" title="Display this item in custom CV #3. This CV may be printed using the Review/Print link on the left." id="report_flag{{ cv_item_id }}" name="report_flag{{ cv_item_id }}" onClick="AjaxToggle('cas_cv_items','cv_item_id',{{ cv_item_id }},'report_flag',$(this).is(':checked'))"{{ report_flag }}>My CV3
             </div>
 		</div>
-		<br><br>	 	
+		<br><br>	 
+				<div id="div_teaching" class="formrow">
+                    Details (displayed with the item)<br/>
+                    <textarea name="details_teaching" cols="80" rows="5">{{ details_teaching }}</textarea>
+                </div>	
     
 				<div class="formrow">
-					<label for="show_details">Show Details</label>
+					<label for="show_details">Show Detailed Input Form</label>
 					<div class='cv_item_field'>
 						<input type="checkbox" name="show_details" {{ show_details }} value="1" onclick="return OnSave();" />
 					</div>
@@ -102,6 +106,7 @@
 					style="display:block;" 
 				{% else %} style="display:none;" {%endif%}
 				>
+				This section of the form is only functional if the 'formatted' box above is empty. 
             {% for item in cv_item_fields %}
                 {% if item.ftype == "hidden" %}
                     <input type="hidden" name="{{ item.f_formname }}" id="{{ item.f_formname }}" value="{{ item.fvalue }}" />

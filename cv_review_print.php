@@ -13,7 +13,7 @@ $generateWhat = (isset($_REQUEST["generate"])) ? CleanString($_REQUEST["generate
 $style = (isset($_REQUEST["style"])) ? CleanString($_REQUEST["style"]) : '';
 $userId = $session->get('user')->get('id');
 
-if (strtolower($generateWhat) == 'caqc') {
+if (strtolower($style) == 'caqc') {
     GenerateCAQC($userId);
 } else {
     GenerateCV($userId, $generateWhat, $style);

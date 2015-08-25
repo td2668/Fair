@@ -4,7 +4,8 @@
 	<div  id="cv_item_form" class='edit'>
         <div class='padderwide'>
 	        <p style="font-size: 0.9em;">
-	          	This is a preview of how your information <i>may</i> look on the web, depending on local customizations.
+	          	This is a preview of how your information <i>may</i> look on the web, depending on local customizations.<br />
+	          	<i>The broad headings combine many different categories and so are sorted by DATE, not by the rank order you may have set for your CV</i>
 	        </p>
 			
 		
@@ -126,6 +127,20 @@
 						</ul>
                 {% endif %}
                 
+                {% if cv %}
+                   {% for group in cv %}
+                  		
+                   		<div class='cv_title'>{{ group.heading }}</div>
+                   		{% for item in group.items %}
+                   			<div class="cv_entries">{{ item|raw }}</div>
+                   		{% endfor %}
+                   	{% endfor %}
+                {% endif %}
+                
+                
+{#
+                
+                
                 {% if educ_list %}
                     <div class='cv_title'>Education</div>
                     {% for ed in educ_list %}
@@ -163,6 +178,7 @@
                     <br/>                      
                  </div>
                        		
+#}
 			
 			
 			{% endif %} 

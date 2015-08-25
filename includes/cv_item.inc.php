@@ -544,12 +544,17 @@ function SaveForm($cvItemId, $userId) {
         }
 
         //where we check for the details for teaching scholarship and service.
+/*
         if (isset($_POST['n_teaching']) && $_POST['n_teaching'] == 1) {
             $fields[] = 'n_teaching = 1';
             $fields[] = "details_teaching = '" . mysql_real_escape_string($_POST['details_teaching']) . "'";
         } else {
             $fields[] = 'n_teaching = 0';
         }
+*/
+		//Now I'm using 'details_teaching' as the generic comment field.
+		
+		$fields[] = "details_teaching = '" . mysql_real_escape_string($_POST['details_teaching']) . "'";
 
         if (isset($_POST['n_scholarship']) && $_POST['n_scholarship'] == 1) {
             $fields[] = 'n_scholarship = 1';
@@ -876,6 +881,158 @@ function PopulateList($userId, $casHeadingId, $vars) {
     $vars["cv_item_list"] = $cvData;
     return $vars;
 }
+
+/**
+ * Builds the display list for the the Headings themselves.
+ *
+ * @param integer $userId current User
+ * @param integer $casHeadingId Current heading ID
+ * @param array $vars The array of template variables
+ */
+function PopulateHeadingList($userId, $vars) {
+    global $db;
+
+    $sql = "SELECT cas_heading_id,heading_name, short_name, rank from cas_headings";
+
+    $headers = $db->getAll($sql);
+	
+        $vars['page']['cv_section_title'] = $headers[0]["heading_name"];
+        $vars['page']['cv_section_title_short'] = $headers[0]["short_name"];
+    
+
+    $cvData = array();
+    $isOddRow = true;
+    $previousItemId = null;
+    $sectionIndex = - 1;
+    $sectionItemIndex = 0;
+
+
+    $casTypeHeadings = array();
+    $results = $db->getAll("SELECT cas_type_id,
+                                       cas_headings.cas_heading_id
+                                FROM `cas_types`
+                                JOIN `cas_headings` ON `cas_headings`.`cas_heading_id` = `cas_types`.`cas_heading_id`");
+    foreach ($results as $result) {
+        $casTypeHeadings[$result['cas_type_id']] = $result['cas_heading_id'];
+    }
+
+    if ($items && sizeof($items) > 0) {
+        foreach ($items as $item) {
+
+            // check for new item type and add header if needed
+            if ($previousItemId != $item["cas_type_id"]) {
+                $sectionIndex++;
+                $sectionItemIndex = 0;
+                $totalItems = GetCvItemPerHeading($userId, $item["cas_type_id"]);
+                $cvData[$sectionIndex] = array(
+                    "title" => GetHeading($item["cas_type_id"]),
+                );
+                $isOddRow = true;
+                $previousItemId = $item["cas_type_id"];
+            }
+
+            $itemFields = getCvItemFields($item["cas_type_id"], $fields);
+
+            //At this point, if there is no cas_heading_id then we are working the 'show all' list.
+            //Need to determine the appropriate heading to help locate the proper heading to highlight when chosen
+            if ($showAll == true) {
+                $casHeadingId = $casTypeHeadings[$item['cas_type_id']];
+            }
+
+            $cvItemId = $item['cv_item_id'];
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]["cas_heading_id"] = $casHeadingId;
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]["cas_type_id"] = $item["cas_type_id"];
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]["type"] = 'item1';
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]["tr_class"] = ($isOddRow ? 'oddrow' : 'evenrow');
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]["cv_item_id"] = $item['cv_item_id'];
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]['report_flag'] = ($item['report_flag']) ? ' CHECKED' : '';
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]['web_show'] = ($item['web_show']) ? ' CHECKED' : '';
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]['mycv1'] = ($item['mycv1']) ? ' CHECKED' : '';
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]['mycv2'] = ($item['mycv2']) ? ' CHECKED' : '';
+           // $cvData[$sectionIndex]['items'][$sectionItemIndex]['mycv3'] = ($item['mycv3']) ? ' CHECKED' : '';
+            if ($allReportShow) {
+                $allReportShow = ($item['report_flag']) ? TRUE : FALSE;
+            }
+
+            if ($allWebShow) {
+                $allWebShow = ($item['web_show']) ? TRUE : FALSE;
+            }
+
+            if ($allMyCV1Show) {
+                $allMyCV1Show = ($item['mycv1']) ? TRUE : FALSE;
+            }
+
+            if ($allMyCV2Show) {
+                $allMyCV2Show = ($item['mycv2']) ? TRUE : FALSE;
+            }
+/*
+            if ($allMyCV3Show) {
+                $allMyCV3Show = ($item['report_flag']) ? TRUE : FALSE;
+            }
+*/
+
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]['web_show'] = ($item['web_show']) ? ' CHECKED' : '';
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]['mycv1'] = ($item['mycv1']) ? ' CHECKED' : '';
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]['mycv2'] = ($item['mycv2']) ? ' CHECKED' : '';
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]['report_flag'] = ($item['report_flag']) ? ' CHECKED' : '';
+
+            // set up the reaining fields for display in the template
+            $title = \MRU\Research\CV::formatitem($item, 'apa', 'screen');
+            if (!$title) {
+                $title = "No title has been generated for this item yet.";
+            }
+           
+            $title=str_ireplace("<p>","",$title);
+        	$title=str_ireplace("</p>", "", $title);
+            
+
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]["title"] = $title;
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]["rank"] = $item['rank'];
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]["item_id"] = $cvItemId;
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]["cv_fname"] = "item_{$cvItemId}_cv";
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]["profile_fname"] = "item_{$cvItemId}_profile";
+            $cvData[$sectionIndex]['items'][$sectionItemIndex]["title_fname"] = "item_{$cvItemId}_title";
+            $isOddRow = !$isOddRow;
+            $sectionItemIndex++;
+        }
+    } else {
+        if (is_array($items) && sizeof($items) == 0) {
+            $vars['header']['status_messages'][] = "No entries yet. Use the Add an Item button to start.";
+        } else {
+            $vars['header']['status_messages'][] = 'A query error occured and we were not able to display the results.  Please try again later.';
+        }
+    }
+    
+     if ($showAll) {
+        // 0 if all activities are displayed
+        $vars["page"]["cas_heading_id"] = 0;
+    }
+    //Something is weird - do override
+    //if(!isset($vars["page"]["cas_heading_id"])) $vars["page"]["cas_heading_id"]=0;
+    //echo("HEading ID IS" . $vars["page"]["cas_heading_id"]);
+
+    if ($allWebShow) {
+        $vars['page']['allweb_show'] = "checked";
+    }
+
+    if ($allMyCV1Show) {
+        $vars['page']['allmycv1'] = "checked";
+    }
+
+    if ($allMyCV2Show) {
+        $vars['page']['allmycv2'] = "checked";
+    }
+    if ($allReportShow) {
+        $vars['page']['allmycv3'] = "checked";
+    }
+
+    
+
+    $vars["cv_item_list"] = $cvData;
+    return $vars;
+}
+
+
 
 /**
  * Build the sidebar submenu of all the categories

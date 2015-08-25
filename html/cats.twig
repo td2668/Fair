@@ -1,0 +1,77 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <form name="cv_item_form" id="cv_item_form" action="" method="post" class="edit">
+        <div class="padder">
+            <div id="section-{{ page.cv_section_title }}" class="section" style="display: block;">
+                
+
+                <div class="sets"></div>
+
+                {% if cv_item_list %}
+                    <div class="cvItemList">
+                        <div class="cvItemsHeader">
+                            
+                           
+                            <div class="clear"></div>
+                        </div>
+
+                        {% for list in cv_item_list %}
+                            <h3>{{ list.title }}</h3>
+
+                            <div class="sortable">
+                                {% for item in list.items %}
+                                    {% if item.type == "item1" %}
+                                        <div class="cvItem " id="item_{{ item.cv_item_id }}">
+
+                                            {% if debug %}
+                                                <small style="float: right; display: inline-block;">Rank: {{ item.rank }}</small>
+                                            {% endif %}
+
+                                           
+
+                                            <i class="fa fa-sort" style="cursor:  move"></i>
+
+                                           
+                                                {{ item.title|raw }}
+                                            
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+    <div class="clear"></div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $(function() {
+        $( ".sortable" ).sortable({
+            handle: "i.fa",
+            update: function (e, ui) {
+                var sortableEl = $(ui.item).parents('.sortable');
+
+                // Disable sorting while we update things to prevent
+                // multiple updates to the same data running concurrently
+                sortableEl.sortable('disable');
+
+                // Send the updated order of the items
+                var itemsQuery = sortableEl.sortable('serialize');
+                $.get("/cv.php?mr_action=move&" + itemsQuery, function (response) {
+                    if (response.status != 'ok') {
+                        // Error updating rank
+                        $(ui.item).css('background', 'red');
+                    }
+
+                    sortableEl.sortable('enable');
+                });
+            }
+        }).disableSelection();
+    });
+</script>
+{% endblock %}

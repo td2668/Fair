@@ -1,0 +1,61 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <form name="cv_item_form" id="cv_item_form" action="" method="post" class="edit">
+        <div class="padder">
+            <div id="" class="section" style="display: block;">
+                Choose the order of items for display in your web profile. If there are no items in a category, or no items with 'Web' checked, then that category will not be displayed. 
+                
+                    <div class="cvItemList">
+                       
+                            <h3>Teaching-Focused</h3>
+
+                            <div class="sortable">
+                                <table>
+                                <tr><td>Teaching Profile</td></tr>
+                                <tr><td>Scholarship Profile</td></tr>
+                                <tr><td>Education</td></tr>
+                                <tr><td>Courses Taught (Details field visible)</td></tr>
+                                </table>
+                            </div>
+                            
+                            <h3>Teaching-Only</h3>
+
+                            <div class="sortable">
+                                
+                            </div>
+                            
+                                <h3>Scholarship-Focused, Pubs all combined</h3>
+
+                            <div class="sortable">
+                                
+                            </div>
+                            
+                            <h3>Scholarship-Focused, Pubs broken out </h3>
+
+                            <div class="sortable">
+                                
+                            </div>
+                            
+                        
+                            
+                            <h3>Scholarship-Only</h3>
+
+                            <div class="sortable">
+                                
+                            </div>
+                            
+                            <h3>Engagement-Focused</h3>
+
+                            <div class="sortable">
+                                
+                            </div>
+                        
+                    </div>
+                
+            </div>
+        </div>
+    </form>
+    <div class="clear"></div>
+{% endblock %}
+
